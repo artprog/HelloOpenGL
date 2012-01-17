@@ -1,0 +1,30 @@
+//
+// Prefix header for all source files of the 'OpenGLTmp' target in the 'OpenGLTmp' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif
+
+#ifdef DEBUG
+
+#define DLOG(format, ...) NSLog(format, ##__VA_ARGS__)
+#define POINT_LOG(name, point) NSLog(@"%@: %@", name, NSStringFromCGPoint(point))
+#define SIZE_LOG(name, size) NSLog(@"%@: %@", name, NSStringFromCGSize(size))
+#define RECT_LOG(name, rect) NSLog(@"%@: %@", name, NSStringFromCGRect(rect))
+
+#else
+
+#define DLOG(format, ...)
+#define POINT_LOG(name, point)
+#define SIZE_LOG(name, size)
+#define RECT_LOG(name, rect)
+
+#endif
