@@ -2,8 +2,8 @@
 //  ESRenderer.h
 //  OpenGLTmp
 //
-//  Created by SMT Software on 10.01.2012.
-//  Copyright (c) 2012 SMTSoftware. All rights reserved.
+//  Created by Adam Zugaj on 10.01.2012.
+//  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
 @class EAGLContext;
