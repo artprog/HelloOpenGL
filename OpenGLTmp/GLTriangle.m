@@ -22,19 +22,19 @@ typedef struct
 
 @implementation GLTriangle
 
-@synthesize projectionAngleX = _projectionAngleX;
-@synthesize projectionAngleY = _projectionAngleY;
+@synthesize cameraAngleY = _cameraAngleY;
+@synthesize cameraAngleX = _cameraAngleX;
 
 - (id)init
 {
 	if ( (self = [super init]) )
 	{
-		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, 0.5f);
-		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, 0.5f);
-		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, 0.5f);
-		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -0.5f);
-		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -0.5f);
-		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -0.5f);
+		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, -4.5f);
+		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, -4.5f);
+		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, -4.5f);
+		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -5.5f);
+		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -5.5f);
+		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -5.5f);
 		Color colorBlue = ColorMake(0, 0, 1, 1);
 		Color colorGreen = ColorMake(0, 1, 0, 1);
 		
@@ -77,8 +77,8 @@ typedef struct
 		_positionSlot = [_program attributeIndex:@"position"];
 		_colorSlot = [_program attributeIndex:@"sourceColor"];
 		_projectionSlot = [_program uniformIndex:@"projection"];
-		_rotationXSlot = [_program uniformIndex:@"rotationX"];
-		_rotationYSlot = [_program uniformIndex:@"rotationY"];
+//		_rotationXSlot = [_program uniformIndex:@"rotationX"];
+//		_rotationYSlot = [_program uniformIndex:@"rotationY"];
 		glEnableVertexAttribArray(_positionSlot);
 		glEnableVertexAttribArray(_colorSlot);
 		
@@ -112,14 +112,25 @@ typedef struct
 
 - (void)render:(GLfloat)width height:(GLfloat)height
 {
-	Matrix projection = MatrixMake(-2.f, 2.f, -2.f, 2.f, -2.f, 2.f);
-	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
-
-	Matrix rotationX = MatrixMakeRotationX(self.projectionAngleX);
-	glUniformMatrix4fv(_rotationXSlot, 1, GL_FALSE, (const GLfloat*)(&rotationX));
+//	Matrix projection = MatrixMakeOrtographicProjection(-2.f, 2.f, -2.f, 2.f, 2.f, 6.f);
+	Matrix projection = MatrixMakePerspectiveProjection(2.f, 6.f, M_PI_4, width/height);
 	
-	Matrix rotationY = MatrixMakeRotationY(self.projectionAngleY);
-	glUniformMatrix4fv(_rotationYSlot, 1, GL_FALSE, (const GLfloat*)(&rotationY));
+	CGFloat rotationAngleY = M_PI_2-(M_PI-self.cameraAngleY)/2.f;
+	CGFloat cameraTranslationX = -10.f*sin(self.cameraAngleY/2.f);
+	
+	CGFloat rotationAngleX = M_PI_2-(M_PI-self.cameraAngleX)/2.f;
+	CGFloat cameraTranslationY = -10.f*sin(self.cameraAngleX/2.f);
+	
+	
+	Matrix rotationX = MatrixMakeRotationX(rotationAngleX);
+	Matrix rotationY = MatrixMakeRotationY(rotationAngleY);
+	Matrix rotationXY = MatrixMultiply(rotationX, rotationY);
+	Matrix translationXY = MatrixMakeTranslation(cameraTranslationX, -cameraTranslationY, 0.f);
+	projection = MatrixMultiply(projection, rotationXY);
+	projection = MatrixMultiply(projection, translationXY);
+	projection = MatrixMultiply(projection, rotationXY);
+	
+	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
 	
 	glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)sizeof(Vertex3D));

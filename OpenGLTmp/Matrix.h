@@ -26,10 +26,25 @@ typedef struct
 	GLfloat _44;
 } Matrix;
 
-Matrix MatrixMake(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
+typedef struct
+{
+	GLfloat _x;
+	GLfloat _y;
+	GLfloat _z;
+	GLfloat _w;
+} Quaternion;
+
+Matrix MatrixMakeOrtographicProjection(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
+Matrix MatrixMakePerspectiveProjection(GLfloat near, GLfloat far, GLfloat angleOfView, GLfloat aspectRatio);
 Matrix MatrixMakeIdentity(void);
 Matrix MatrixMakeTranslation(GLfloat x, GLfloat y, GLfloat z);
 Matrix MatrixMakeRotationX(GLfloat angle);
 Matrix MatrixMakeRotationY(GLfloat angle);
 Matrix MatrixMakeRotationZ(GLfloat angle);
 Matrix MatrixMakeRotationYX(CGFloat angleY, CGFloat angleX);
+Matrix MatrixMultiply(Matrix m1, Matrix m2);
+Matrix MatrixFromQuaternion(Quaternion q);
+Quaternion QuaternionMakeIdentity(void);
+Quaternion QuaternionMakeEulerAngles(GLfloat y, GLfloat z, GLfloat x);
+Quaternion QuaternionMultiply(Quaternion q1, Quaternion q2);
+Quaternion QuaternionInverse(Quaternion q);

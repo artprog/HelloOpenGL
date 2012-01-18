@@ -115,27 +115,25 @@
 
 - (void)panGestureRecognizer:(UIPanGestureRecognizer*)sender
 {
-	CGPoint translation = [sender translationInView:self];
+	static CGFloat currentProjectionAngleY = 0;
+	static CGFloat currentProjectionAngleX = 0;
 	GLTriangle *triangle = [(ES2Renderer*)_renderer triangle];
-	CGSize size = self.bounds.size;
-	
-	static CGFloat oldProjectionAngleX = 0;
-	static CGFloat oldProjectionAngleY = 0;
-	CGFloat newProjectAngleX = (-translation.y*M_PI)/size.height;
-	CGFloat newProjectAngleY = (-translation.x*M_PI)/size.width;
-	
+
 	if ( sender.state == UIGestureRecognizerStateBegan || sender.state == UIGestureRecognizerStateChanged )
 	{
-		triangle.projectionAngleX -= oldProjectionAngleX - newProjectAngleX;
-		oldProjectionAngleX = newProjectAngleX;
+		CGPoint translation = [sender translationInView:self];
+		CGSize size = self.bounds.size;
 		
-		triangle.projectionAngleY -= oldProjectionAngleY - newProjectAngleY;
-		oldProjectionAngleY = newProjectAngleY;
+		CGFloat newProjectionAngleY = currentProjectionAngleY + (-translation.x*M_PI)/size.width;
+		triangle.cameraAngleY = newProjectionAngleY;
+		
+		CGFloat newProjectionAngleX = currentProjectionAngleX + (-translation.y*M_PI)/size.height;
+		triangle.cameraAngleX = newProjectionAngleX;
 	}
 	if ( sender.state == UIGestureRecognizerStateEnded )
 	{
-		oldProjectionAngleX = 0;
-		oldProjectionAngleY = 0;
+		currentProjectionAngleY = triangle.cameraAngleY;
+		currentProjectionAngleX = triangle.cameraAngleX;
 	}
 }
 

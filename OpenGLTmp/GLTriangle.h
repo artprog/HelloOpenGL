@@ -18,14 +18,12 @@
 	GLuint _positionSlot;
 	GLuint _colorSlot;
 	GLuint _projectionSlot;
-	GLuint _rotationXSlot;
-	GLuint _rotationYSlot;
-	CGFloat _projectionAngleX;
-	CGFloat _projectionAngleY;
+	CGFloat _cameraAngleY;
+	CGFloat _cameraAngleX;
 }
 
-@property CGFloat projectionAngleX;
-@property CGFloat projectionAngleY;
+@property CGFloat cameraAngleX;
+@property CGFloat cameraAngleY;
 
 - (void)use;
 - (void)render:(GLfloat)width height:(GLfloat)height;
