@@ -12,6 +12,7 @@
 		7AAC4A9E14BEE52E00DE6B08 /* Triangle3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4A9D14BEE52E00DE6B08 /* Triangle3D.m */; };
 		7AAC4AA614BF164A00DE6B08 /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4AA514BF164A00DE6B08 /* Color.m */; };
 		7AAC4AA914BF25E100DE6B08 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4AA814BF25E000DE6B08 /* GLProgram.m */; };
+		7ADDC3AA14C8517500D59B73 /* ObjParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADDC3A914C8517500D59B73 /* ObjParser.m */; };
 		7AE2217B14BC4A190012A891 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217A14BC4A190012A891 /* UIKit.framework */; };
 		7AE2217D14BC4A190012A891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217C14BC4A190012A891 /* Foundation.framework */; };
 		7AE2217F14BC4A190012A891 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217E14BC4A190012A891 /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 		7AAC4AA514BF164A00DE6B08 /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		7AAC4AA714BF25E000DE6B08 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
 		7AAC4AA814BF25E000DE6B08 /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
+		7ADDC3A814C8517500D59B73 /* ObjParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjParser.h; sourceTree = "<group>"; };
+		7ADDC3A914C8517500D59B73 /* ObjParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjParser.m; sourceTree = "<group>"; };
 		7AE2217614BC4A190012A891 /* OpenGLTmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLTmp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE2217A14BC4A190012A891 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7AE2217C14BC4A190012A891 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		7ADDC3A614C8513B00D59B73 /* wavefront parser */ = {
+			isa = PBXGroup;
+			children = (
+				7ADDC3AB14C8517C00D59B73 /* obj parser */,
+			);
+			name = "wavefront parser";
+			sourceTree = "<group>";
+		};
+		7ADDC3AB14C8517C00D59B73 /* obj parser */ = {
+			isa = PBXGroup;
+			children = (
+				7ADDC3A814C8517500D59B73 /* ObjParser.h */,
+				7ADDC3A914C8517500D59B73 /* ObjParser.m */,
+			);
+			name = "obj parser";
+			sourceTree = "<group>";
+		};
 		7AE2216B14BC4A180012A891 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +145,7 @@
 		7AE2218014BC4A190012A891 /* OpenGLTmp */ = {
 			isa = PBXGroup;
 			children = (
+				7ADDC3A614C8513B00D59B73 /* wavefront parser */,
 				7AE2219414BC4A980012A891 /* OpenGL */,
 				7AE2218914BC4A190012A891 /* AppDelegate.h */,
 				7AE2218A14BC4A190012A891 /* AppDelegate.m */,
@@ -250,6 +271,7 @@
 				7AAC4AA914BF25E100DE6B08 /* GLProgram.m in Sources */,
 				7AFBC50C14C0730C007C238A /* GLTriangle.m in Sources */,
 				7A03C54314C42C3F003024FB /* Matrix.m in Sources */,
+				7ADDC3AA14C8517500D59B73 /* ObjParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

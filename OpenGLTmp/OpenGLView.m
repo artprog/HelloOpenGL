@@ -28,6 +28,15 @@
     if ( (self = [super initWithFrame:frame]) )
     {
 		CAEAGLLayer *layer = (CAEAGLLayer*)self.layer;
+		
+        // Construct a dictionary with our configurations.
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
+							  kEAGLColorFormatRGB565, kEAGLDrawablePropertyColorFormat,
+							  nil];
+		
+        // Set the properties to CAEAGLLayer.
+        [layer setDrawableProperties:dict];
 		layer.opaque = YES;
 		
 		_animationFrameInterval = 3;
@@ -127,7 +136,7 @@
 		CGFloat newProjectionAngleY = currentProjectionAngleY + (-translation.x*M_PI)/size.width;
 		triangle.cameraAngleY = newProjectionAngleY;
 		
-		CGFloat newProjectionAngleX = currentProjectionAngleX + (-translation.y*M_PI)/size.height;
+		CGFloat newProjectionAngleX = currentProjectionAngleX + (translation.y*M_PI)/size.height;
 		triangle.cameraAngleX = newProjectionAngleX;
 	}
 	if ( sender.state == UIGestureRecognizerStateEnded )

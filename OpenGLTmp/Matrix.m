@@ -7,6 +7,7 @@
 //
 
 #import "Matrix.h"
+#import "Vertex3D.h"
 
 Matrix MatrixMakeOrtographicProjection(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far)
 {
@@ -42,6 +43,22 @@ Matrix MatrixMakePerspectiveProjection(GLfloat near, GLfloat far, GLfloat angleO
 	matrix._34 = -(2.f * far * near) / (far - near);
 	matrix._44 = 0.f;
 	
+	return matrix;
+}
+
+Matrix MatrixMakeLookAt(GLfloat eyeX, GLfloat eyeY, GLfloat eyeZ, GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat upX, GLfloat upY, GLfloat upZ)
+{	
+	Vertex3D F = Vertex3DMake(centerX-eyeX, centerY-eyeY, centerZ-eyeZ);
+	Vertex3D f = Vertex3DNormalize(F);
+	
+	Vertex3D UP = Vertex3DMake(upX, upY, upZ);
+	
+	Vertex3D s = Vertex3DCrossProduct(f, UP);
+	s = Vertex3DNormalize(s);
+	Vertex3D u = Vertex3DCrossProduct(s, f);
+	
+	Matrix matrix = {s.x, u.x, -f.x, 0, s.y, u.y, -f.y, 0, s.z, u.z, -f.z, 0, 0, 0, 0, 1};
+	matrix = MatrixMultiply(matrix, MatrixMakeTranslation(-eyeX, -eyeY, -eyeZ));
 	return matrix;
 }
 

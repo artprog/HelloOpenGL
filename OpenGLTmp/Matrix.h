@@ -36,6 +36,7 @@ typedef struct
 
 Matrix MatrixMakeOrtographicProjection(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat near, GLfloat far);
 Matrix MatrixMakePerspectiveProjection(GLfloat near, GLfloat far, GLfloat angleOfView, GLfloat aspectRatio);
+Matrix MatrixMakeLookAt(GLfloat eyeX, GLfloat eyeY, GLfloat eyeZ, GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat upX, GLfloat upY, GLfloat upZ);
 Matrix MatrixMakeIdentity(void);
 Matrix MatrixMakeTranslation(GLfloat x, GLfloat y, GLfloat z);
 Matrix MatrixMakeRotationX(GLfloat angle);

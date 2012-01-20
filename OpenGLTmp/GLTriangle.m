@@ -13,6 +13,7 @@
 #import "GLProgram.h"
 #import "Matrix.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ObjParser.h"
 
 typedef struct
 {
@@ -29,12 +30,12 @@ typedef struct
 {
 	if ( (self = [super init]) )
 	{
-		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, -4.5f);
-		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, -4.5f);
-		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, -4.5f);
-		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -5.5f);
-		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -5.5f);
-		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -5.5f);
+		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, 0.5f);
+		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, 0.5f);
+		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, 0.5f);
+		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -0.5f);
+		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -0.5f);
+		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -0.5f);
 		Color colorBlue = ColorMake(0, 0, 1, 1);
 		Color colorGreen = ColorMake(0, 1, 0, 1);
 		
@@ -62,6 +63,29 @@ typedef struct
 			2, 1, 5,
 			5, 1, 4
 		};
+//		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
+//		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
+//		[objParser parse];
+//		NSArray *verticesArray = [objParser vertices];
+//		NSArray *indicesArray = [objParser indices];
+//		Vertex vertices[verticesArray.count];
+//		Vertex3D vertex3D;
+//		Vertex vertexTmp;
+//		NSValue *value;
+//		for (NSInteger i=0; i<verticesArray.count; ++i)
+//		{
+//			value = [verticesArray objectAtIndex:i];
+//			[value getValue:&vertex3D];
+//			vertexTmp.vertex = vertex3D;
+//			vertexTmp.color = colorGreen;
+//			vertices[i] = vertexTmp;
+//		}
+//		GLubyte indices[indicesArray.count];
+//		for (NSInteger i=0; i<indicesArray.count; ++i)
+//		{
+//			indices[i] = [[indicesArray objectAtIndex:i] unsignedIntValue];
+//		}
+//		[objParser release];
 		_indexCount = sizeof(indices)/sizeof(indices[0]);
 		
 		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
@@ -77,8 +101,6 @@ typedef struct
 		_positionSlot = [_program attributeIndex:@"position"];
 		_colorSlot = [_program attributeIndex:@"sourceColor"];
 		_projectionSlot = [_program uniformIndex:@"projection"];
-//		_rotationXSlot = [_program uniformIndex:@"rotationX"];
-//		_rotationYSlot = [_program uniformIndex:@"rotationY"];
 		glEnableVertexAttribArray(_positionSlot);
 		glEnableVertexAttribArray(_colorSlot);
 		
@@ -112,23 +134,16 @@ typedef struct
 
 - (void)render:(GLfloat)width height:(GLfloat)height
 {
-//	Matrix projection = MatrixMakeOrtographicProjection(-2.f, 2.f, -2.f, 2.f, 2.f, 6.f);
-	Matrix projection = MatrixMakePerspectiveProjection(2.f, 6.f, M_PI_4, width/height);
+//	Matrix projection = MatrixMakeOrtographicProjection(-1.5f, 1.5f, -1.5f, 1.5f, -1.5f, 1.5f);
+	Matrix projection = MatrixMakePerspectiveProjection(3.f, 7.f, M_PI_4, width/height);
 	
-	CGFloat rotationAngleY = M_PI_2-(M_PI-self.cameraAngleY)/2.f;
-	CGFloat cameraTranslationX = -10.f*sin(self.cameraAngleY/2.f);
+	Matrix lookAt = MatrixMakeLookAt(5*cosf(self.cameraAngleX)*sinf(self.cameraAngleY), 5*sinf(self.cameraAngleX), 5*cosf(self.cameraAngleX)*cosf(self.cameraAngleY), 0, 0, 0, 0, cosf(self.cameraAngleX)>0?1:-1, 0);
 	
-	CGFloat rotationAngleX = M_PI_2-(M_PI-self.cameraAngleX)/2.f;
-	CGFloat cameraTranslationY = -10.f*sin(self.cameraAngleX/2.f);
+	projection = MatrixMultiply(projection, lookAt);
 	
-	
-	Matrix rotationX = MatrixMakeRotationX(rotationAngleX);
-	Matrix rotationY = MatrixMakeRotationY(rotationAngleY);
-	Matrix rotationXY = MatrixMultiply(rotationX, rotationY);
-	Matrix translationXY = MatrixMakeTranslation(cameraTranslationX, -cameraTranslationY, 0.f);
-	projection = MatrixMultiply(projection, rotationXY);
-	projection = MatrixMultiply(projection, translationXY);
-	projection = MatrixMultiply(projection, rotationXY);
+//	Matrix triangleManip = MatrixMakeRotationY(-M_PI_2);
+//	triangleManip = MatrixMultiply(triangleManip, MatrixMakeTranslation(0, 0, 1));
+//	projection = MatrixMultiply(projection, triangleManip);
 	
 	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
 	
