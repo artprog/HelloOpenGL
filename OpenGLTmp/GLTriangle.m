@@ -30,62 +30,62 @@ typedef struct
 {
 	if ( (self = [super init]) )
 	{
-		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, 0.5f);
-		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, 0.5f);
-		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, 0.5f);
-		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -0.5f);
-		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -0.5f);
-		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -0.5f);
-		Color colorBlue = ColorMake(0, 0, 1, 1);
+//		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, 0.5f);
+//		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, 0.5f);
+//		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, 0.5f);
+//		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -0.5f);
+//		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -0.5f);
+//		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -0.5f);
+//		Color colorBlue = ColorMake(0, 0, 1, 1);
 		Color colorGreen = ColorMake(0, 1, 0, 1);
-		
-		Vertex vertices[] = {
-			{vertex1, colorBlue},
-			{vertex2, colorBlue},
-			{vertex3, colorBlue},
-			{vertex4, colorGreen},
-			{vertex5, colorGreen},
-			{vertex6, colorGreen}
-		};
-		
-		GLubyte indices[] = {
-			// front
-			2, 1, 0,
-			// back
-			3, 4, 5,
-			// left
-			0, 1, 4,
-			4, 0, 3,
-			// right
-			0, 2, 5,
-			5, 3, 0,
-			// bottom
-			2, 1, 5,
-			5, 1, 4
-		};
-//		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
-//		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
-//		[objParser parse];
-//		NSArray *verticesArray = [objParser vertices];
-//		NSArray *indicesArray = [objParser indices];
-//		Vertex vertices[verticesArray.count];
-//		Vertex3D vertex3D;
-//		Vertex vertexTmp;
-//		NSValue *value;
-//		for (NSInteger i=0; i<verticesArray.count; ++i)
-//		{
-//			value = [verticesArray objectAtIndex:i];
-//			[value getValue:&vertex3D];
-//			vertexTmp.vertex = vertex3D;
-//			vertexTmp.color = colorGreen;
-//			vertices[i] = vertexTmp;
-//		}
-//		GLubyte indices[indicesArray.count];
-//		for (NSInteger i=0; i<indicesArray.count; ++i)
-//		{
-//			indices[i] = [[indicesArray objectAtIndex:i] unsignedIntValue];
-//		}
-//		[objParser release];
+//		
+//		Vertex vertices[] = {
+//			{vertex1, colorBlue},
+//			{vertex2, colorBlue},
+//			{vertex3, colorBlue},
+//			{vertex4, colorGreen},
+//			{vertex5, colorGreen},
+//			{vertex6, colorGreen}
+//		};
+//		
+//		GLubyte indices[] = {
+//			// front
+//			2, 1, 0,
+//			// back
+//			3, 4, 5,
+//			// left
+//			0, 1, 4,
+//			4, 0, 3,
+//			// right
+//			0, 2, 5,
+//			5, 3, 0,
+//			// bottom
+//			2, 1, 5,
+//			5, 1, 4
+//		};
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
+		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
+		[objParser parse];
+		NSArray *verticesArray = [objParser vertices];
+		NSArray *indicesArray = [objParser indices];
+		Vertex vertices[verticesArray.count];
+		Vertex3D vertex3D;
+		Vertex vertexTmp;
+		NSValue *value;
+		for (NSInteger i=0; i<verticesArray.count; ++i)
+		{
+			value = [verticesArray objectAtIndex:i];
+			[value getValue:&vertex3D];
+			vertexTmp.vertex = vertex3D;
+			vertexTmp.color = colorGreen;
+			vertices[i] = vertexTmp;
+		}
+		GLushort indices[indicesArray.count];
+		for (NSInteger i=0; i<indicesArray.count; ++i)
+		{
+			indices[i] = [[indicesArray objectAtIndex:i] unsignedShortValue];
+		}
+		[objParser release];
 		_indexCount = sizeof(indices)/sizeof(indices[0]);
 		
 		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
@@ -141,15 +141,14 @@ typedef struct
 	
 	projection = MatrixMultiply(projection, lookAt);
 	
-//	Matrix triangleManip = MatrixMakeRotationY(-M_PI_2);
-//	triangleManip = MatrixMultiply(triangleManip, MatrixMakeTranslation(0, 0, 1));
-//	projection = MatrixMultiply(projection, triangleManip);
+	Matrix scale = MatrixMakeScale(2);
+	projection = MatrixMultiply(projection, scale);
 	
 	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
 	
 	glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)sizeof(Vertex3D));
-    glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_BYTE, 0);
+    glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, 0);
 }
 
 @end

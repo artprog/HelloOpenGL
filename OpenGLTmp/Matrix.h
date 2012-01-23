@@ -38,6 +38,7 @@ Matrix MatrixMakeOrtographicProjection(GLfloat left, GLfloat right, GLfloat bott
 Matrix MatrixMakePerspectiveProjection(GLfloat near, GLfloat far, GLfloat angleOfView, GLfloat aspectRatio);
 Matrix MatrixMakeLookAt(GLfloat eyeX, GLfloat eyeY, GLfloat eyeZ, GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat upX, GLfloat upY, GLfloat upZ);
 Matrix MatrixMakeIdentity(void);
+Matrix MatrixMakeScale(GLfloat scale);
 Matrix MatrixMakeTranslation(GLfloat x, GLfloat y, GLfloat z);
 Matrix MatrixMakeRotationX(GLfloat angle);
 Matrix MatrixMakeRotationY(GLfloat angle);

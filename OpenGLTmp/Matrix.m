@@ -68,6 +68,12 @@ Matrix MatrixMakeIdentity(void)
 	return matrix;
 }
 
+Matrix MatrixMakeScale(GLfloat scale)
+{
+	Matrix matrix = {scale, 0, 0, 0, 0, scale, 0, 0, 0, 0, scale, 0, 0, 0, 0, 1};
+	return matrix;
+}
+
 Matrix MatrixMakeTranslation(GLfloat x, GLfloat y, GLfloat z)
 {
 	Matrix matrix = MatrixMakeIdentity();

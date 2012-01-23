@@ -10,8 +10,8 @@
 #import "Vertex3D.h"
 
 @interface ObjParser ()
-- (Vertex3D)readVertex:(NSArray*)components;
-- (NSArray*)readIndices:(NSArray*)components;
+- (Vertex3D)readVertex:(char*)line;
+- (NSArray*)readIndices:(char*)line;
 @end
 
 @implementation ObjParser
@@ -38,26 +38,23 @@
 
 - (void)parse
 {
-	NSString *fileContents = [[NSString alloc] initWithContentsOfFile:_filePath encoding:NSUTF8StringEncoding error:NULL];
-	NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-	NSArray *components;
-	[fileContents release];
-	for (NSString *line in lines)
+	FILE *file = fopen([_filePath cStringUsingEncoding:NSUTF8StringEncoding], "r");
+	char line[128];
+	char identifier[4];
+	while ( fgets(line, sizeof(line), file) )
 	{
-		components = [line componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-		if ( components.count )
+		sscanf(line, "%s", identifier);
+		if ( strcmp(identifier, "v") == 0 )
 		{
-			if ( strcmp([(NSString*)[components objectAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding], "v") == 0 )
-			{
-				Vertex3D vertex = [self readVertex:[components subarrayWithRange:NSMakeRange(1, components.count-1)]];
-				[_vertices addObject:[NSValue valueWithBytes:&vertex objCType:@encode(Vertex3D)]];
-			}
-			if ( strcmp([(NSString*)[components objectAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding], "f") == 0 )
-			{
-				[_indices addObjectsFromArray:[self readIndices:components]];
-			}
+			Vertex3D vertex = [self readVertex:line];
+			[_vertices addObject:[NSValue valueWithBytes:&vertex objCType:@encode(Vertex3D)]];
+		}
+		if ( strcmp(identifier, "f") == 0 )
+		{
+			[_indices addObjectsFromArray:[self readIndices:line]];
 		}
 	}
+	fclose(file);
 }
 
 - (NSArray*)vertices
@@ -73,34 +70,32 @@
 #pragma mark -
 #pragma mark ObjParser ()
 
-- (Vertex3D)readVertex:(NSArray*)components
+- (Vertex3D)readVertex:(char*)line
 {
-	Vertex3D vertex = {0, 0, 0};
-	GLfloat *vertexPointer = (GLfloat*)(&vertex);
-	if ( components.count == 3 )
-	{
-		for (NSInteger i=0; i<3; ++i)
-		{
-			vertexPointer[i] = [[components objectAtIndex:i] floatValue];
-		}
-	}
+	Vertex3D vertex;
+	sscanf(line, "v %f %f %f", &vertex.x, &vertex.y, &vertex.z);
 	return vertex;
 }
 
-- (NSArray*)readIndices:(NSArray*)components
+- (NSArray*)readIndices:(char*)line
 {
 	NSMutableArray *indices = [NSMutableArray array];
-	NSArray *indicesTmp;
-	for (NSString *component in components)
+	char *fragment;
+	const int maxIndexCount = 10;
+	unsigned short face[maxIndexCount];
+	unsigned int i = 0;
+	int tmp;
+	fragment = strtok(line, " "); // first should be "f" sign
+	while ( (fragment = strtok(NULL, " ")) && i<maxIndexCount )
 	{
-		indicesTmp = [component componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-		if ( indicesTmp.count == 3 )
-		{
-			for (NSString *index in indicesTmp)
-			{
-				[indices addObject:[NSNumber numberWithUnsignedInteger:[index integerValue]]];
-			}
-		}
+		sscanf(fragment, "%d", &tmp);
+		face[i++] = (unsigned short)tmp;
+	}
+	for (int j=1; j<i-1; ++j)
+	{
+		[indices addObject:[NSNumber numberWithUnsignedShort:face[0]]];
+		[indices addObject:[NSNumber numberWithUnsignedShort:face[j]]];
+		[indices addObject:[NSNumber numberWithUnsignedShort:face[j+1]]];
 	}
 	return indices;
 }
