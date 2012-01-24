@@ -164,10 +164,9 @@ typedef void (*GLLogFunction) (GLuint program, GLsizei bufsize, GLsizei *length,
         return nil;
 	}
 	
-    char *logBytes = malloc(logLength);
+    char logBytes[logLength];
     logFunc(object, logLength, &charsWritten, logBytes);
     NSString *log = [[[NSString alloc] initWithBytes:logBytes length:logLength encoding:NSUTF8StringEncoding] autorelease];
-    free(logBytes);
     return log;
 }
 

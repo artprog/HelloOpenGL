@@ -15,12 +15,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ObjParser.h"
 
-typedef struct
-{
-	Vertex3D vertex;
-	Color color;
-} Vertex;
-
 @implementation GLTriangle
 
 @synthesize cameraAngleY = _cameraAngleY;
@@ -30,63 +24,12 @@ typedef struct
 {
 	if ( (self = [super init]) )
 	{
-//		Vertex3D vertex1 = Vertex3DMake(0.0, 1.0, 0.5f);
-//		Vertex3D vertex2 = Vertex3DMake(1.0, 0.0, 0.5f);
-//		Vertex3D vertex3 = Vertex3DMake(-1.0, 0.0, 0.5f);
-//		Vertex3D vertex4 = Vertex3DMake(0.0, 1.0, -0.5f);
-//		Vertex3D vertex5 = Vertex3DMake(1.0, 0.0, -0.5f);
-//		Vertex3D vertex6 = Vertex3DMake(-1.0, 0.0, -0.5f);
-//		Color colorBlue = ColorMake(0, 0, 1, 1);
-		Color colorGreen = ColorMake(0, 1, 0, 1);
-//		
-//		Vertex vertices[] = {
-//			{vertex1, colorBlue},
-//			{vertex2, colorBlue},
-//			{vertex3, colorBlue},
-//			{vertex4, colorGreen},
-//			{vertex5, colorGreen},
-//			{vertex6, colorGreen}
-//		};
-//		
-//		GLubyte indices[] = {
-//			// front
-//			2, 1, 0,
-//			// back
-//			3, 4, 5,
-//			// left
-//			0, 1, 4,
-//			4, 0, 3,
-//			// right
-//			0, 2, 5,
-//			5, 3, 0,
-//			// bottom
-//			2, 1, 5,
-//			5, 1, 4
-//		};
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
 		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
+		NSLog(@"a");
 		[objParser parse];
-		NSArray *verticesArray = [objParser vertices];
-		NSArray *indicesArray = [objParser indices];
-		Vertex vertices[verticesArray.count];
-		Vertex3D vertex3D;
-		Vertex vertexTmp;
-		NSValue *value;
-		for (NSInteger i=0; i<verticesArray.count; ++i)
-		{
-			value = [verticesArray objectAtIndex:i];
-			[value getValue:&vertex3D];
-			vertexTmp.vertex = vertex3D;
-			vertexTmp.color = colorGreen;
-			vertices[i] = vertexTmp;
-		}
-		GLushort indices[indicesArray.count];
-		for (NSInteger i=0; i<indicesArray.count; ++i)
-		{
-			indices[i] = [[indicesArray objectAtIndex:i] unsignedShortValue];
-		}
-		[objParser release];
-		_indexCount = sizeof(indices)/sizeof(indices[0]);
+		NSLog(@"b");
+		_indexCount = [objParser indicesCount];
 		
 		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
 		NSString *fragment = [[NSBundle mainBundle] pathForResource:@"FragmentShader" ofType:@"glsl"];
@@ -106,11 +49,13 @@ typedef struct
 		
 		glGenBuffers(1, &_vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*[objParser verticesCount], [objParser vertices], GL_STATIC_DRAW);
 		
 		glGenBuffers(1, &_indexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*_indexCount, [objParser indices], GL_STATIC_DRAW);
+		
+		[objParser release];
 	}
 	return self;
 }

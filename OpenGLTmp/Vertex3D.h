@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
-#import "Color.h"
-
 typedef struct
 {
 	GLfloat x;

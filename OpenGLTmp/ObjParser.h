@@ -6,19 +6,35 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
+#include <vector>
+
+#import "Vertex3D.h"
+#import "Color.h"
+#import "Vector2D.h"
+
+typedef struct
+{
+	Vertex3D vertex;
+	Color color;
+//	Vector2D texCoord;
+} Vertex;
+
 @interface ObjParser : NSObject
 {
 	@private
 	NSString *_filePath;
-	NSMutableArray *_vertices;
-	NSMutableArray *_indices;
+	std::vector<Vertex> _vertices;
+	std::vector<GLushort> _indices;
 }
 
 - (id)initWithFile:(NSString*)path;
 
 - (void)parse;
 
-- (NSArray*)vertices;
-- (NSArray*)indices;
+- (Vertex*)vertices;
+- (NSInteger)verticesCount;
+
+- (GLushort*)indices;
+- (NSInteger)indicesCount;
 
 @end
