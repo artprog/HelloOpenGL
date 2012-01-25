@@ -14,6 +14,7 @@ static NSInteger defaultVectorCapacity = 4096;
 @interface ObjParser ()
 - (void)readVertex:(char*)line;
 - (void)readIndices:(char*)line;
+- (void)readTextureCoords:(char*)line;
 @end
 
 @implementation ObjParser
@@ -24,6 +25,7 @@ static NSInteger defaultVectorCapacity = 4096;
 	{
 		_filePath = [path copy];
 		_vertices = std::vector<Vertex>(defaultVectorCapacity);
+		_textCoords = std::vector<Vector2D>(defaultVectorCapacity);
 		_indices = std::vector<GLushort>(defaultVectorCapacity);
 	}
 	return self;
@@ -44,16 +46,29 @@ static NSInteger defaultVectorCapacity = 4096;
 	FILE *file = fopen([_filePath cStringUsingEncoding:NSUTF8StringEncoding], "r");
 	char line[256];
 	char identifier[256];
+	BOOL faceFound = NO;
 	while ( fgets(line, sizeof(line), file) )
 	{
 		sscanf(line, "%s", identifier);
+		if ( strcmp(identifier, "f") == 0 )
+		{
+			faceFound = YES;
+			[self readIndices:line];
+		}
+		else
+		{
+			if ( faceFound )
+			{
+				break;
+			}
+		}
 		if ( strcmp(identifier, "v") == 0 )
 		{
 			[self readVertex:line];
 		}
-		if ( strcmp(identifier, "f") == 0 )
+		if ( strcmp(identifier, "vt") == 0 )
 		{
-			[self readIndices:line];
+			[self readTextureCoords:line];
 		}
 	}
 	fclose(file);
@@ -88,29 +103,44 @@ static NSInteger defaultVectorCapacity = 4096;
 	Vertex3D vertex3D;
 	sscanf(line, "v %f %f %f", &vertex3D.x, &vertex3D.y, &vertex3D.z);
 	vertex.vertex = vertex3D;
-	vertex.color = ColorMake(0, 1, 0, 1);
+	vertex.color = ColorMake(1, 1, 1, 1);
 	_vertices.push_back(vertex);
 }
 
 - (void)readIndices:(char*)line
 {
-	char *fragment;
+	char *vertex;
 	static int maxIndexCount = 10;
 	unsigned short face[maxIndexCount];
+	unsigned short text[maxIndexCount];
 	unsigned int i = 0;
-	int tmp;
-	fragment = strtok(line, " "); // first should be "f" sign
-	while ( (fragment = strtok(NULL, " ")) && i<maxIndexCount )
+	int tmp1;
+	int tmp2;
+	vertex = strtok(line, " "); // first should be "f" sign
+	while ( (vertex = strtok(NULL, " ")) && i<maxIndexCount )
 	{
-		sscanf(fragment, "%d", &tmp);
-		face[i++] = (unsigned short)(tmp-1);
+		sscanf(vertex, "%d/%d", &tmp1, &tmp2);
+		face[i] = (unsigned short)(tmp1-1);
+		text[i] = (unsigned short)(tmp2-1);
+		++i;
 	}
-	for (tmp=1; tmp<i-1; ++tmp)
+	for (tmp1=1; tmp1<i-1; ++tmp1)
 	{
 		_indices.push_back(face[0]);
-		_indices.push_back(face[tmp]);
-		_indices.push_back(face[tmp+1]);
+		_indices.push_back(face[tmp1]);
+		_indices.push_back(face[tmp1+1]);
 	}
+	for (tmp1=0; tmp1<i; ++tmp1)
+	{
+		_vertices.at(face[tmp1]).textCoord = _textCoords.at(text[tmp1]);
+	}
+}
+
+- (void)readTextureCoords:(char*)line
+{
+	Vector2D vector;
+	sscanf(line, "vt %f %f", &vector.x, &vector.y);
+	_textCoords.push_back(vector);
 }
 
 @end

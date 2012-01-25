@@ -12,12 +12,15 @@
 {
 	@private
 	GLuint _vertexBuffer;
+	GLuint _textureBuffer;
 	GLuint _indexBuffer;
 	GLProgram *_program;
 	GLuint _indexCount;
 	GLuint _positionSlot;
 	GLuint _colorSlot;
 	GLuint _projectionSlot;
+	GLuint _textCoordSlot;
+	GLuint _textureSlot;
 	CGFloat _cameraAngleY;
 	CGFloat _cameraAngleX;
 }

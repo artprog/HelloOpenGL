@@ -7,6 +7,7 @@
 //
 
 #import "GLTriangle.h"
+#import "Vector2D.h"
 #import "Vertex3D.h"
 #import "Triangle3D.h"
 #import "Color.h"
@@ -36,6 +37,7 @@
 		_program = [[GLProgram alloc] initWithVertexShaderFile:vertex fragmentShaderFile:fragment];
 		[_program addAttribute:@"position"];
 		[_program addAttribute:@"sourceColor"];
+		[_program addAttribute:@"sourceTextCoord"];
 		if ( ![_program link] )
 		{
 			NSLog(@"Error while linking OpenGL program!!!");
@@ -43,9 +45,12 @@
 		
 		_positionSlot = [_program attributeIndex:@"position"];
 		_colorSlot = [_program attributeIndex:@"sourceColor"];
+		_textCoordSlot = [_program attributeIndex:@"sourceTextCoord"];
 		_projectionSlot = [_program uniformIndex:@"projection"];
+		_textureSlot = [_program uniformIndex:@"texture"];
 		glEnableVertexAttribArray(_positionSlot);
 		glEnableVertexAttribArray(_colorSlot);
+		glEnableVertexAttribArray(_textCoordSlot);
 		
 		glGenBuffers(1, &_vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
@@ -54,6 +59,24 @@
 		glGenBuffers(1, &_indexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*_indexCount, [objParser indices], GL_STATIC_DRAW);
+		
+		//=============
+		CGImageRef spriteImage = [UIImage imageNamed:@"Pin_Stripe_3.jpg"].CGImage;
+		
+		size_t width = CGImageGetWidth(spriteImage);
+		size_t height = CGImageGetHeight(spriteImage);
+		GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
+		CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
+		CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+		CGContextRelease(spriteContext);
+		
+		glGenTextures(1, &_textureBuffer);
+		glBindTexture(GL_TEXTURE_2D, _textureBuffer);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+		
+		free(spriteData);
+		//============
 		
 		[objParser release];
 	}
@@ -92,7 +115,14 @@
 	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
 	
 	glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)sizeof(Vertex3D));
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vertex3D)+sizeof(Vector2D)));
+	
+	glVertexAttribPointer(_textCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vertex3D)));
+	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, _textureBuffer);
+	glUniform1i(_textureSlot, 0);
+	
     glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, 0);
 }
 

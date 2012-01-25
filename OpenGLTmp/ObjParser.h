@@ -15,8 +15,8 @@
 typedef struct
 {
 	Vertex3D vertex;
+	Vector2D textCoord;
 	Color color;
-//	Vector2D texCoord;
 } Vertex;
 
 @interface ObjParser : NSObject
@@ -24,6 +24,7 @@ typedef struct
 	@private
 	NSString *_filePath;
 	std::vector<Vertex> _vertices;
+	std::vector<Vector2D> _textCoords;
 	std::vector<GLushort> _indices;
 }
 
