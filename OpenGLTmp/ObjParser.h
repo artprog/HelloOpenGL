@@ -12,6 +12,8 @@
 #import "Color.h"
 #import "Vector2D.h"
 
+@class MtlParser;
+
 typedef struct
 {
 	Vertex3D vertex;
@@ -26,6 +28,7 @@ typedef struct
 	std::vector<Vertex> _vertices;
 	std::vector<Vector2D> _textCoords;
 	std::vector<GLushort> _indices;
+	MtlParser *_mtlParser;
 }
 
 - (id)initWithFile:(NSString*)path;

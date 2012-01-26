@@ -1,5 +1,6 @@
 attribute vec4 position;
 attribute vec4 sourceColor;
+attribute vec4 ambientColor;
 attribute vec2 sourceTextCoord;
 
 uniform mat4 projection;

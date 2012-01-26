@@ -8,6 +8,7 @@
 
 #import "ObjParser.h"
 #import "Vertex3D.h"
+#import "MtlParser.h"
 
 static NSInteger defaultVectorCapacity = 4096;
 
@@ -15,6 +16,7 @@ static NSInteger defaultVectorCapacity = 4096;
 - (void)readVertex:(char*)line;
 - (void)readIndices:(char*)line;
 - (void)readTextureCoords:(char*)line;
+- (void)parseMtl:(char*)line;
 @end
 
 @implementation ObjParser
@@ -34,6 +36,7 @@ static NSInteger defaultVectorCapacity = 4096;
 - (void)dealloc
 {
 	[_filePath release];
+	[_mtlParser release];
 	
 	[super dealloc];
 }
@@ -54,6 +57,7 @@ static NSInteger defaultVectorCapacity = 4096;
 		{
 			faceFound = YES;
 			[self readIndices:line];
+			continue;
 		}
 		else
 		{
@@ -65,10 +69,17 @@ static NSInteger defaultVectorCapacity = 4096;
 		if ( strcmp(identifier, "v") == 0 )
 		{
 			[self readVertex:line];
+			continue;
 		}
 		if ( strcmp(identifier, "vt") == 0 )
 		{
 			[self readTextureCoords:line];
+			continue;
+		}
+		if ( strcmp(identifier, "mtllib") == 0 )
+		{
+			[self parseMtl:line];
+			continue;
 		}
 	}
 	fclose(file);
@@ -141,6 +152,20 @@ static NSInteger defaultVectorCapacity = 4096;
 	Vector2D vector;
 	sscanf(line, "vt %f %f", &vector.x, &vector.y);
 	_textCoords.push_back(vector);
+}
+
+- (void)parseMtl:(char*)line
+{
+	char mtlName[256];
+	sscanf(line, "mtllib %s", mtlName);
+	if ( strlen(mtlName) > 0 )
+	{
+		NSString *mtlNameStr = [NSString stringWithCString:mtlName encoding:NSUTF8StringEncoding];
+		NSString *mtlPath = [[_filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:mtlNameStr];
+		[_mtlParser release];
+		_mtlParser = [[MtlParser alloc] initWithFile:mtlPath];
+		[_mtlParser parse];
+	}
 }
 
 @end
