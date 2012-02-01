@@ -8,11 +8,11 @@
 
 #import "Triangle3D.h"
 
-Triangle3D Triangle3DMake(Vertex3D v1, Vertex3D v2, Vertex3D v3)
-{
-	Triangle3D triangle;
-	triangle.v1 = v1;
-	triangle.v2 = v2;
-	triangle.v3 = v3;
-	return triangle;
-}
+//Triangle3D Triangle3DMake(Vertex3D v1, Vertex3D v2, Vertex3D v3)
+//{
+//	Triangle3D triangle;
+//	triangle.v1 = v1;
+//	triangle.v2 = v2;
+//	triangle.v3 = v3;
+//	return triangle;
+//}

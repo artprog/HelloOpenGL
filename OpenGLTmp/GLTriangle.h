@@ -6,23 +6,36 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
+#import "GLModel.h"
+
 @class GLProgram;
+
+typedef struct
+{
+	Material material;
+	GLuint indexBuffer;
+	GLuint indexCount;
+	GLuint textureBuffer;
+} DrawingElement;
 
 @interface GLTriangle : NSObject
 {
 	@private
 	GLuint _vertexBuffer;
-	GLuint _textureBuffer;
-	GLuint _indexBuffer;
 	GLProgram *_program;
-	GLuint _indexCount;
+	
 	GLuint _positionSlot;
-	GLuint _colorSlot;
-	GLuint _projectionSlot;
 	GLuint _textCoordSlot;
-	GLuint _textureSlot;
+	
+	GLuint _projectionUniformSlot;
+	GLuint _ambientUniformSlot;
+	GLuint _diffuseUniformSlot;
+	GLuint _textureAvailableUniformSlot;
+	GLuint _textureUniformSlot;
+	
 	CGFloat _cameraAngleY;
 	CGFloat _cameraAngleX;
+	NSMutableSet *_drawingElements;
 }
 
 @property CGFloat cameraAngleX;

@@ -1,16 +1,18 @@
 attribute vec4 position;
-attribute vec4 sourceColor;
-attribute vec4 ambientColor;
 attribute vec2 sourceTextCoord;
 
 uniform mat4 projection;
+uniform vec4 ambientColor;
+uniform vec4 diffuseColor;
 
-varying vec4 color;
+varying vec4 ambientFragColor;
+varying vec4 diffuseFragColor;
 varying vec2 textCoord;
 
 void main()
 {
     gl_Position = projection * position;
-	color = sourceColor;
+	ambientFragColor = ambientColor;
+	diffuseFragColor = diffuseColor;
 	textCoord = sourceTextCoord;
 }

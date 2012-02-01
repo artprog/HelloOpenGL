@@ -6,28 +6,18 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
-#include <vector>
-
-#import "Vertex3D.h"
-#import "Color.h"
-#import "Vector2D.h"
-
-@class MtlParser;
-
-typedef struct
-{
-	Vertex3D vertex;
-	Vector2D textCoord;
-	Color color;
-} Vertex;
+#import "GLModel.h"
+#import "MtlParser.h"
 
 @interface ObjParser : NSObject
 {
 	@private
 	NSString *_filePath;
-	std::vector<Vertex> _vertices;
+	std::vector<TriangleVertex> _vertices;
 	std::vector<Vector2D> _textCoords;
+	std::vector<Vector3D> _normalVectors;
 	std::vector<GLushort> _indices;
+	std::vector<Mesh> _meshes;
 	MtlParser *_mtlParser;
 }
 
@@ -35,10 +25,13 @@ typedef struct
 
 - (void)parse;
 
-- (Vertex*)vertices;
-- (NSInteger)verticesCount;
+- (TriangleVertex*)triangleVertices;
+- (NSUInteger)triangleVerticesCount;
 
 - (GLushort*)indices;
-- (NSInteger)indicesCount;
+- (NSUInteger)indicesCount;
+
+- (Mesh*)meshes;
+- (NSUInteger)meshesCount;
 
 @end

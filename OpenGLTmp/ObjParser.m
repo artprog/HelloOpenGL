@@ -7,16 +7,17 @@
 //
 
 #import "ObjParser.h"
-#import "Vertex3D.h"
 #import "MtlParser.h"
 
 static NSInteger defaultVectorCapacity = 4096;
 
 @interface ObjParser ()
 - (void)readVertex:(char*)line;
-- (void)readIndices:(char*)line;
 - (void)readTextureCoords:(char*)line;
+- (void)readNormalVector:(char*)line;
+- (void)readTriangles:(char*)line;
 - (void)parseMtl:(char*)line;
+- (void)useMtl:(char*)line;
 @end
 
 @implementation ObjParser
@@ -26,9 +27,10 @@ static NSInteger defaultVectorCapacity = 4096;
 	if ( (self = [super init]) )
 	{
 		_filePath = [path copy];
-		_vertices = std::vector<Vertex>(defaultVectorCapacity);
-		_textCoords = std::vector<Vector2D>(defaultVectorCapacity);
-		_indices = std::vector<GLushort>(defaultVectorCapacity);
+		_vertices.reserve(defaultVectorCapacity);
+		_textCoords.reserve(defaultVectorCapacity);
+		_normalVectors.resize(defaultVectorCapacity);
+		_meshes.reserve(defaultVectorCapacity);
 	}
 	return self;
 }
@@ -42,29 +44,17 @@ static NSInteger defaultVectorCapacity = 4096;
 }
 
 - (void)parse
-{
-	_vertices.clear();
-	_indices.clear();
-	
+{	
 	FILE *file = fopen([_filePath cStringUsingEncoding:NSUTF8StringEncoding], "r");
 	char line[256];
 	char identifier[256];
-	BOOL faceFound = NO;
 	while ( fgets(line, sizeof(line), file) )
 	{
 		sscanf(line, "%s", identifier);
 		if ( strcmp(identifier, "f") == 0 )
 		{
-			faceFound = YES;
-			[self readIndices:line];
+			[self readTriangles:line];
 			continue;
-		}
-		else
-		{
-			if ( faceFound )
-			{
-				break;
-			}
 		}
 		if ( strcmp(identifier, "v") == 0 )
 		{
@@ -76,23 +66,48 @@ static NSInteger defaultVectorCapacity = 4096;
 			[self readTextureCoords:line];
 			continue;
 		}
+		if ( strcmp(identifier, "vn") == 0 )
+		{
+			[self readNormalVector:line];
+			continue;
+		}
 		if ( strcmp(identifier, "mtllib") == 0 )
 		{
 			[self parseMtl:line];
 			continue;
 		}
+		if ( strcmp(identifier, "usemtl") == 0 )
+		{
+			[self useMtl:line];
+			continue;
+		}
+	}
+	if ( _meshes.size() )
+	{
+		Mesh &currentMesh = _meshes.back();
+		currentMesh.indicesCount = _indices.size()-currentMesh.offset;
 	}
 	fclose(file);
 }
 
-- (Vertex*)vertices
+- (TriangleVertex*)triangleVertices
 {
 	return &_vertices[0];
 }
 
-- (NSInteger)verticesCount
+- (NSUInteger)triangleVerticesCount
 {
 	return _vertices.size();
+}
+
+- (Mesh*)meshes
+{
+	return &_meshes[0];
+}
+
+- (NSUInteger)meshesCount
+{
+	return _meshes.size();
 }
 
 - (GLushort*)indices
@@ -100,7 +115,7 @@ static NSInteger defaultVectorCapacity = 4096;
 	return &_indices[0];
 }
 
-- (NSInteger)indicesCount
+- (NSUInteger)indicesCount
 {
 	return _indices.size();
 }
@@ -110,40 +125,12 @@ static NSInteger defaultVectorCapacity = 4096;
 
 - (void)readVertex:(char*)line
 {
-	Vertex vertex;
-	Vertex3D vertex3D;
-	sscanf(line, "v %f %f %f", &vertex3D.x, &vertex3D.y, &vertex3D.z);
-	vertex.vertex = vertex3D;
-	vertex.color = ColorMake(1, 1, 1, 1);
+	TriangleVertex vertex;
+	sscanf(line, "v %f %f %f", &vertex.vertex.x, &vertex.vertex.y, &vertex.vertex.z);
 	_vertices.push_back(vertex);
-}
-
-- (void)readIndices:(char*)line
-{
-	char *vertex;
-	static int maxIndexCount = 10;
-	unsigned short face[maxIndexCount];
-	unsigned short text[maxIndexCount];
-	unsigned int i = 0;
-	int tmp1;
-	int tmp2;
-	vertex = strtok(line, " "); // first should be "f" sign
-	while ( (vertex = strtok(NULL, " ")) && i<maxIndexCount )
+	if ( _vertices.size() >= _vertices.capacity() )
 	{
-		sscanf(vertex, "%d/%d", &tmp1, &tmp2);
-		face[i] = (unsigned short)(tmp1-1);
-		text[i] = (unsigned short)(tmp2-1);
-		++i;
-	}
-	for (tmp1=1; tmp1<i-1; ++tmp1)
-	{
-		_indices.push_back(face[0]);
-		_indices.push_back(face[tmp1]);
-		_indices.push_back(face[tmp1+1]);
-	}
-	for (tmp1=0; tmp1<i; ++tmp1)
-	{
-		_vertices.at(face[tmp1]).textCoord = _textCoords.at(text[tmp1]);
+		_vertices.reserve(_vertices.capacity()+defaultVectorCapacity);
 	}
 }
 
@@ -152,6 +139,53 @@ static NSInteger defaultVectorCapacity = 4096;
 	Vector2D vector;
 	sscanf(line, "vt %f %f", &vector.x, &vector.y);
 	_textCoords.push_back(vector);
+	if ( _textCoords.size() >= _textCoords.capacity() )
+	{
+		_textCoords.reserve(_textCoords.capacity()+defaultVectorCapacity);
+	}
+}
+
+- (void)readNormalVector:(char*)line
+{
+	Vector3D normalVector;
+	sscanf(line, "vn %f %f %f", &normalVector.x, &normalVector.y, &normalVector.z);
+	_normalVectors.push_back(normalVector);
+	if ( _normalVectors.size() >= _normalVectors.capacity() )
+	{
+		_normalVectors.resize(_normalVectors.capacity()+defaultVectorCapacity);
+	}
+}
+
+- (void)readTriangles:(char*)line
+{
+	std::vector<GLuint> polygon;
+	int triangleVertexIndex;
+	int textureCoordsIndex;
+	int vertexNormalIndex;
+	
+	char *vertex = strtok(line, " "); // first should be "f" sign
+	while ( (vertex = strtok(NULL, " ")) )
+	{
+		sscanf(vertex, "%d/%d/%d", &triangleVertexIndex, &textureCoordsIndex, &vertexNormalIndex);
+		triangleVertexIndex -= 1;
+		textureCoordsIndex -= 1;
+		vertexNormalIndex -= 1;
+		_vertices[triangleVertexIndex].textureCoords = _textCoords[textureCoordsIndex];
+		_vertices[triangleVertexIndex].vertexNormal = _normalVectors[vertexNormalIndex];
+		polygon.push_back(triangleVertexIndex);
+	}
+	
+	int polygonVertices = polygon.size();
+	for (int i=1; i<polygonVertices-1; ++i)
+	{
+		if ( _indices.size()+3 >= _indices.capacity() )
+		{
+			_indices.reserve(_indices.capacity()+defaultVectorCapacity);
+		}
+		_indices.push_back(polygon[0]);
+		_indices.push_back(polygon[i]);
+		_indices.push_back(polygon[i+1]);
+	}
 }
 
 - (void)parseMtl:(char*)line
@@ -165,6 +199,29 @@ static NSInteger defaultVectorCapacity = 4096;
 		[_mtlParser release];
 		_mtlParser = [[MtlParser alloc] initWithFile:mtlPath];
 		[_mtlParser parse];
+	}
+}
+
+- (void)useMtl:(char*)line
+{
+	char mtlName[256];
+	sscanf(line, "usemtl %s", mtlName);
+	if ( strlen(mtlName) > 0 )
+	{
+		NSString *mtlNameStr = [NSString stringWithCString:mtlName encoding:NSUTF8StringEncoding];
+		NSValue *materialValue = nil;
+		materialValue = [_mtlParser.materials objectForKey:mtlNameStr];
+		Material material;
+		[materialValue getValue:&material];
+		Mesh mesh;
+		mesh.material = material;
+		mesh.offset = _indices.size();
+		if ( _meshes.size() )
+		{
+			Mesh &currentMesh = _meshes.back();
+			currentMesh.indicesCount = mesh.offset-currentMesh.offset;
+		}
+		_meshes.push_back(mesh);
 	}
 }
 

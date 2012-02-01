@@ -6,20 +6,7 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
-#import "Color.h"
-
-typedef struct
-{
-	GLfloat Ns;
-	Color Ka;
-	Color Kd;
-	Color Ks;
-	GLfloat Ni;
-	GLfloat d;
-	GLuint illum;
-	char map_Kd[256];
-	char name[256];
-} Material;
+#import "GLModel.h"
 
 Material MaterialMakeZero();
 

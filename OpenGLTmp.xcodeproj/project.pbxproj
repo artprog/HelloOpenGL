@@ -10,9 +10,8 @@
 		7A03C54314C42C3F003024FB /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03C54214C42C3F003024FB /* Matrix.m */; };
 		7A1CC78714C5D9C600AEAF9A /* Chair_Conv.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7A1CC78614C5D9C600AEAF9A /* Chair_Conv.obj */; };
 		7AAC4A9E14BEE52E00DE6B08 /* Triangle3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4A9D14BEE52E00DE6B08 /* Triangle3D.m */; };
-		7AAC4AA614BF164A00DE6B08 /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4AA514BF164A00DE6B08 /* Color.m */; };
 		7AAC4AA914BF25E100DE6B08 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4AA814BF25E000DE6B08 /* GLProgram.m */; };
-		7ADBFB6414CEF9B000FBC98C /* Vector2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBFB6314CEF9B000FBC98C /* Vector2D.m */; };
+		7ADC648614D7F16500D7A30B /* GLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC648514D7F16500D7A30B /* GLModel.m */; };
 		7ADDC3AA14C8517500D59B73 /* ObjParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADDC3A914C8517500D59B73 /* ObjParser.m */; };
 		7AE2217B14BC4A190012A891 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217A14BC4A190012A891 /* UIKit.framework */; };
 		7AE2217D14BC4A190012A891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217C14BC4A190012A891 /* Foundation.framework */; };
@@ -28,7 +27,6 @@
 		7AE221A114BC54030012A891 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE221A014BC54030012A891 /* OpenGLES.framework */; };
 		7AE221A314BC78530012A891 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 7AE221A214BC78530012A891 /* VertexShader.glsl */; };
 		7AE221A514BC7E6A0012A891 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */; };
-		7AE850E314BEE45B0089DBD8 /* Vertex3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE850E214BEE45B0089DBD8 /* Vertex3D.m */; };
 		7AE9C17214D14C380042B513 /* MtlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE9C17114D14C380042B513 /* MtlParser.m */; };
 		7AE9C17514D1557F0042B513 /* Chair_Conv.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7AE9C17414D1557F0042B513 /* Chair_Conv.mtl */; };
 		7AE9C17914D1620E0042B513 /* GLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE9C17814D1620E0042B513 /* GLElement.m */; };
@@ -42,12 +40,10 @@
 		7A1CC78614C5D9C600AEAF9A /* Chair_Conv.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Chair_Conv.obj; path = Resources/Chair_Conv.obj; sourceTree = "<group>"; };
 		7AAC4A9B14BEE4E200DE6B08 /* Triangle3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle3D.h; sourceTree = "<group>"; };
 		7AAC4A9D14BEE52E00DE6B08 /* Triangle3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Triangle3D.m; sourceTree = "<group>"; };
-		7AAC4AA414BF164A00DE6B08 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		7AAC4AA514BF164A00DE6B08 /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		7AAC4AA714BF25E000DE6B08 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
 		7AAC4AA814BF25E000DE6B08 /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
-		7ADBFB6214CEF9B000FBC98C /* Vector2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2D.h; sourceTree = "<group>"; };
-		7ADBFB6314CEF9B000FBC98C /* Vector2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vector2D.m; sourceTree = "<group>"; };
+		7ADC648414D7F16500D7A30B /* GLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLModel.h; sourceTree = "<group>"; };
+		7ADC648514D7F16500D7A30B /* GLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLModel.m; sourceTree = "<group>"; };
 		7ADDC3A814C8517500D59B73 /* ObjParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjParser.h; sourceTree = "<group>"; };
 		7ADDC3A914C8517500D59B73 /* ObjParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjParser.m; sourceTree = "<group>"; };
 		7AE2217614BC4A190012A891 /* OpenGLTmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLTmp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,8 +68,6 @@
 		7AE221A014BC54030012A891 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7AE221A214BC78530012A891 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
 		7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
-		7AE850E014BEE3E40089DBD8 /* Vertex3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex3D.h; sourceTree = "<group>"; };
-		7AE850E214BEE45B0089DBD8 /* Vertex3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vertex3D.m; sourceTree = "<group>"; };
 		7AE9C17014D14C380042B513 /* MtlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MtlParser.h; sourceTree = "<group>"; };
 		7AE9C17114D14C380042B513 /* MtlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MtlParser.m; sourceTree = "<group>"; };
 		7AE9C17414D1557F0042B513 /* Chair_Conv.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Chair_Conv.mtl; path = Resources/Chair_Conv.mtl; sourceTree = "<group>"; };
@@ -108,6 +102,15 @@
 				7A1CC78614C5D9C600AEAF9A /* Chair_Conv.obj */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		7ADC648214D7F15200D7A30B /* GLModel */ = {
+			isa = PBXGroup;
+			children = (
+				7ADC648414D7F16500D7A30B /* GLModel.h */,
+				7ADC648514D7F16500D7A30B /* GLModel.m */,
+			);
+			name = GLModel;
 			sourceTree = "<group>";
 		};
 		7ADDC3A614C8513B00D59B73 /* wavefront parser */ = {
@@ -162,6 +165,7 @@
 		7AE2218014BC4A190012A891 /* OpenGLTmp */ = {
 			isa = PBXGroup;
 			children = (
+				7ADC648214D7F15200D7A30B /* GLModel */,
 				7ADDC3A614C8513B00D59B73 /* wavefront parser */,
 				7AE2219414BC4A980012A891 /* OpenGL */,
 				7AE2218914BC4A190012A891 /* AppDelegate.h */,
@@ -196,16 +200,10 @@
 				7AE2219E14BC52DF0012A891 /* ES2Renderer.m */,
 				7AE221A214BC78530012A891 /* VertexShader.glsl */,
 				7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */,
-				7AE850E014BEE3E40089DBD8 /* Vertex3D.h */,
-				7AE850E214BEE45B0089DBD8 /* Vertex3D.m */,
-				7ADBFB6214CEF9B000FBC98C /* Vector2D.h */,
-				7ADBFB6314CEF9B000FBC98C /* Vector2D.m */,
 				7AAC4A9B14BEE4E200DE6B08 /* Triangle3D.h */,
 				7AAC4A9D14BEE52E00DE6B08 /* Triangle3D.m */,
 				7A03C54114C42C3F003024FB /* Matrix.h */,
 				7A03C54214C42C3F003024FB /* Matrix.m */,
-				7AAC4AA414BF164A00DE6B08 /* Color.h */,
-				7AAC4AA514BF164A00DE6B08 /* Color.m */,
 				7AAC4AA714BF25E000DE6B08 /* GLProgram.h */,
 				7AAC4AA814BF25E000DE6B08 /* GLProgram.m */,
 				7AFBC50A14C0730C007C238A /* GLTriangle.h */,
@@ -296,16 +294,14 @@
 				7AE2219714BC4ACE0012A891 /* OpenGLView.m in Sources */,
 				7AE2219C14BC52980012A891 /* ESRenderer.m in Sources */,
 				7AE2219F14BC52DF0012A891 /* ES2Renderer.m in Sources */,
-				7AE850E314BEE45B0089DBD8 /* Vertex3D.m in Sources */,
 				7AAC4A9E14BEE52E00DE6B08 /* Triangle3D.m in Sources */,
-				7AAC4AA614BF164A00DE6B08 /* Color.m in Sources */,
 				7AAC4AA914BF25E100DE6B08 /* GLProgram.m in Sources */,
 				7AFBC50C14C0730C007C238A /* GLTriangle.m in Sources */,
 				7A03C54314C42C3F003024FB /* Matrix.m in Sources */,
 				7ADDC3AA14C8517500D59B73 /* ObjParser.m in Sources */,
-				7ADBFB6414CEF9B000FBC98C /* Vector2D.m in Sources */,
 				7AE9C17214D14C380042B513 /* MtlParser.m in Sources */,
 				7AE9C17914D1620E0042B513 /* GLElement.m in Sources */,
+				7ADC648614D7F16500D7A30B /* GLModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,9 +13,9 @@ Material MaterialMakeZero(void)
 	Material material;
 	
 	material.Ns = -1.f;
-	material.Ka = ColorMake(0, 0, 0, 1);
-	material.Kd = material.Ka;
-	material.Ks = material.Ka;
+	material.ambient = ColorMake(0, 0, 0, 1);
+	material.diffuse = material.ambient;
+	material.specular = material.ambient;
 	material.Ni = material.Ns;
 	material.d = material.Ns;
 	material.illum = -1;
@@ -106,17 +106,17 @@ Material MaterialMakeZero(void)
 		}
 		if ( strcmp(identifier, "Ka") == 0 )
 		{
-			sscanf(line, "Ka %f %f %f", &material.Ka.red, &material.Ka.green, &material.Ka.blue);
+			sscanf(line, "Ka %f %f %f", &material.ambient.red, &material.ambient.green, &material.ambient.blue);
 			continue;
 		}
 		if ( strcmp(identifier, "Kd") == 0 )
 		{
-			sscanf(line, "Kd %f %f %f", &material.Kd.red, &material.Kd.green, &material.Kd.blue);
+			sscanf(line, "Kd %f %f %f", &material.diffuse.red, &material.diffuse.green, &material.diffuse.blue);
 			continue;
 		}
 		if ( strcmp(identifier, "Ks") == 0 )
 		{
-			sscanf(line, "Ks %f %f %f", &material.Ks.red, &material.Ks.green, &material.Ks.blue);
+			sscanf(line, "Ks %f %f %f", &material.specular.red, &material.specular.green, &material.specular.blue);
 			continue;
 		}
 		if ( strcmp(identifier, "Ni") == 0 )

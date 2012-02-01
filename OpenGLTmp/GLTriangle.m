@@ -7,10 +7,6 @@
 //
 
 #import "GLTriangle.h"
-#import "Vector2D.h"
-#import "Vertex3D.h"
-#import "Triangle3D.h"
-#import "Color.h"
 #import "GLProgram.h"
 #import "Matrix.h"
 #import <QuartzCore/QuartzCore.h>
@@ -26,57 +22,77 @@
 	if ( (self = [super init]) )
 	{
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
+		_drawingElements = [[NSMutableSet alloc] init];
+		
 		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
 		NSLog(@"a");
 		[objParser parse];
 		NSLog(@"b");
-		_indexCount = [objParser indicesCount];
 		
 		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
 		NSString *fragment = [[NSBundle mainBundle] pathForResource:@"FragmentShader" ofType:@"glsl"];
 		_program = [[GLProgram alloc] initWithVertexShaderFile:vertex fragmentShaderFile:fragment];
 		[_program addAttribute:@"position"];
-		[_program addAttribute:@"sourceColor"];
 		[_program addAttribute:@"sourceTextCoord"];
 		if ( ![_program link] )
 		{
-			NSLog(@"Error while linking OpenGL program!!!");
+			NSLog(@"Error while linking OpenGL program: \"%@\"!!!", [_program programLog]);
 		}
 		
 		_positionSlot = [_program attributeIndex:@"position"];
-		_colorSlot = [_program attributeIndex:@"sourceColor"];
 		_textCoordSlot = [_program attributeIndex:@"sourceTextCoord"];
-		_projectionSlot = [_program uniformIndex:@"projection"];
-		_textureSlot = [_program uniformIndex:@"texture"];
+		
+		_projectionUniformSlot = [_program uniformIndex:@"projection"];
+		_ambientUniformSlot = [_program uniformIndex:@"ambientColor"];
+		_diffuseUniformSlot = [_program uniformIndex:@"diffuseColor"];
+		_textureAvailableUniformSlot = [_program uniformIndex:@"textureAvailable"];
+		_textureUniformSlot = [_program uniformIndex:@"texture"];
+		
 		glEnableVertexAttribArray(_positionSlot);
-		glEnableVertexAttribArray(_colorSlot);
 		glEnableVertexAttribArray(_textCoordSlot);
+		
+		glEnableVertexAttribArray(_projectionUniformSlot);
+		glEnableVertexAttribArray(_ambientUniformSlot);
+		glEnableVertexAttribArray(_diffuseUniformSlot);
 		
 		glGenBuffers(1, &_vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*[objParser verticesCount], [objParser vertices], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
 		
-		glGenBuffers(1, &_indexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*_indexCount, [objParser indices], GL_STATIC_DRAW);
-		
-		//=============
-		CGImageRef spriteImage = [UIImage imageNamed:@"Pin_Stripe_3.jpg"].CGImage;
-		
-		size_t width = CGImageGetWidth(spriteImage);
-		size_t height = CGImageGetHeight(spriteImage);
-		GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
-		CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
-		CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
-		CGContextRelease(spriteContext);
-		
-		glGenTextures(1, &_textureBuffer);
-		glBindTexture(GL_TEXTURE_2D, _textureBuffer);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
-		
-		free(spriteData);
-		//============
+		GLushort *indices = [objParser indices];
+		Mesh *meshes = [objParser meshes];
+		NSUInteger meshesCount = [objParser meshesCount];
+		Mesh mesh;
+		for (int i=0; i<meshesCount; ++i)
+		{
+			mesh = meshes[i];
+			DrawingElement drawingElement;
+			drawingElement.indexCount = mesh.indicesCount;
+			drawingElement.material = mesh.material;
+			glGenBuffers(1, &drawingElement.indexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawingElement.indexBuffer);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*drawingElement.indexCount, indices+mesh.offset, GL_STATIC_DRAW);
+			
+			if ( strlen(drawingElement.material.map_Kd) > 0 )
+			{
+				NSString *mapKdStr = [NSString stringWithCString:drawingElement.material.map_Kd encoding:NSUTF8StringEncoding];
+				CGImageRef spriteImage = [UIImage imageWithContentsOfFile:[[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:mapKdStr]].CGImage;
+				size_t width = CGImageGetWidth(spriteImage);
+				size_t height = CGImageGetHeight(spriteImage);
+				GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
+				CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
+				CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+				CGContextRelease(spriteContext);
+				
+				glGenTextures(1, &drawingElement.textureBuffer);
+				glBindTexture(GL_TEXTURE_2D, drawingElement.textureBuffer);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+				free(spriteData);
+			}
+			
+			[_drawingElements addObject:[NSValue valueWithBytes:&drawingElement objCType:@encode(DrawingElement)]];
+		}
 		
 		[objParser release];
 	}
@@ -84,11 +100,20 @@
 }
 
 - (void)dealloc
-{
-	GLuint buffers[] = {_vertexBuffer, _indexBuffer};
-	glDeleteBuffers(2, buffers);
-	
+{	
+	DrawingElement drawingElement;
+	for (NSValue *drawingElementValue in _drawingElements)
+	{
+		[drawingElementValue getValue:&drawingElement];
+		glDeleteBuffers(1, &drawingElement.indexBuffer);
+		if ( strlen(drawingElement.material.map_Kd) > 0 )
+		{
+			glDeleteTextures(1, &drawingElement.textureBuffer);
+		}
+	}
+	glDeleteBuffers(1, &_vertexBuffer);
 	[_program release];
+	[_drawingElements release];
 	
 	[super dealloc];
 }
@@ -96,7 +121,6 @@
 - (void)use
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
 	[_program use];
 }
 
@@ -112,21 +136,34 @@
 	Matrix scale = MatrixMakeScale(2);
 	projection = MatrixMultiply(projection, scale);
 	
-	glUniformMatrix4fv(_projectionSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
+	glUniformMatrix4fv(_projectionUniformSlot, 1, GL_FALSE, (const GLfloat*)(&projection));
 	
-	glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vertex3D)+sizeof(Vector2D)));
+	glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(TriangleVertex), 0);
+	glVertexAttribPointer(_textCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(TriangleVertex), (GLvoid*)(sizeof(Vertex)));
 	
-	glVertexAttribPointer(_textCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vertex3D)));
-	
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _textureBuffer);
-	glUniform1i(_textureSlot, 0);
-	
-    glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_SHORT, 0);
+	DrawingElement drawingElement;
+	for (NSValue *drawingElementValue in _drawingElements)
+	{
+		[drawingElementValue getValue:&drawingElement];
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawingElement.indexBuffer);
+		glUniform1i(_ambientUniformSlot, 1);
+		glUniform4f(_ambientUniformSlot, drawingElement.material.ambient.red, drawingElement.material.ambient.green, drawingElement.material.ambient.blue, drawingElement.material.ambient.alpha);
+		glUniform4f(_diffuseUniformSlot, drawingElement.material.diffuse.red, drawingElement.material.diffuse.green, drawingElement.material.diffuse.blue, drawingElement.material.diffuse.alpha);
+		if ( strlen(drawingElement.material.map_Kd) > 0 )
+		{
+			glUniform1i(_textureAvailableUniformSlot, GL_TRUE);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, drawingElement.textureBuffer);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glUniform1i(_textureUniformSlot, 0);
+		}
+		else
+		{
+			glUniform1i(_textureAvailableUniformSlot, GL_FALSE);
+		}
+		glDrawElements(GL_TRIANGLES, drawingElement.indexCount, GL_UNSIGNED_SHORT, 0);
+	}
 }
 
 @end
