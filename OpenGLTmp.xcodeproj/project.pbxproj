@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65AB385E154DC70D00607CE1 /* APMeshLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */; };
+		65D62BD215A30ED900F92DAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217C14BC4A190012A891 /* Foundation.framework */; };
+		65D62BDC15A30EF500F92DAB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE221A014BC54030012A891 /* OpenGLES.framework */; };
+		65D62BDD15A30F3200F92DAB /* APOpenGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D62BC815A30CDC00F92DAB /* APOpenGLProgram.m */; };
+		65D62BE015A3180500F92DAB /* APOpenGLScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D62BDE15A3180500F92DAB /* APOpenGLScene.h */; };
+		65D62BE115A3180500F92DAB /* APOpenGLScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D62BDF15A3180500F92DAB /* APOpenGLScene.m */; };
+		65D62BE215A3183000F92DAB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217A14BC4A190012A891 /* UIKit.framework */; };
+		65D62BE415A31F0B00F92DAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2219814BC4B230012A891 /* QuartzCore.framework */; };
+		65D62BE515A31F6500F92DAB /* libAPOpenGLEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D62BD115A30ED900F92DAB /* libAPOpenGLEngine.a */; };
+		65D62BE815A4452A00F92DAB /* APOpenGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D62BE615A4452A00F92DAB /* APOpenGLRenderer.h */; };
+		65D62BE915A4452A00F92DAB /* APOpenGLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D62BE715A4452A00F92DAB /* APOpenGLRenderer.m */; };
 		7A03C54314C42C3F003024FB /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03C54214C42C3F003024FB /* Matrix.m */; };
 		7A1CC78714C5D9C600AEAF9A /* Chair_Conv.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7A1CC78614C5D9C600AEAF9A /* Chair_Conv.obj */; };
 		7AAC4A9E14BEE52E00DE6B08 /* Triangle3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC4A9D14BEE52E00DE6B08 /* Triangle3D.m */; };
@@ -20,10 +31,7 @@
 		7AE2218714BC4A190012A891 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2218614BC4A190012A891 /* main.m */; };
 		7AE2218B14BC4A190012A891 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2218A14BC4A190012A891 /* AppDelegate.m */; };
 		7AE2219314BC4A910012A891 /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2219214BC4A910012A891 /* OpenGLController.m */; };
-		7AE2219714BC4ACE0012A891 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2219614BC4ACE0012A891 /* OpenGLView.m */; };
 		7AE2219914BC4B230012A891 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2219814BC4B230012A891 /* QuartzCore.framework */; };
-		7AE2219C14BC52980012A891 /* ESRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2219B14BC52980012A891 /* ESRenderer.m */; };
-		7AE2219F14BC52DF0012A891 /* ES2Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2219E14BC52DF0012A891 /* ES2Renderer.m */; };
 		7AE221A114BC54030012A891 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE221A014BC54030012A891 /* OpenGLES.framework */; };
 		7AE221A314BC78530012A891 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 7AE221A214BC78530012A891 /* VertexShader.glsl */; };
 		7AE221A514BC7E6A0012A891 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */; };
@@ -35,6 +43,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		65AB385C154DC70D00607CE1 /* APMeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMeshLoader.h; sourceTree = "<group>"; };
+		65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APMeshLoader.cpp; sourceTree = "<group>"; };
+		65D62BBB15A30B5000F92DAB /* APOpenGLEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "APOpenGLEngine-Info.plist"; sourceTree = "<group>"; };
+		65D62BBD15A30B5000F92DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65D62BBF15A30B5000F92DAB /* APOpenGLEngine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APOpenGLEngine-Prefix.pch"; sourceTree = "<group>"; };
+		65D62BC015A30B5000F92DAB /* APOpenGLEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APOpenGLEngine.h; sourceTree = "<group>"; };
+		65D62BC715A30CDC00F92DAB /* APOpenGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLProgram.h; sourceTree = "<group>"; };
+		65D62BC815A30CDC00F92DAB /* APOpenGLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLProgram.m; sourceTree = "<group>"; };
+		65D62BD115A30ED900F92DAB /* libAPOpenGLEngine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAPOpenGLEngine.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		65D62BDE15A3180500F92DAB /* APOpenGLScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLScene.h; sourceTree = "<group>"; };
+		65D62BDF15A3180500F92DAB /* APOpenGLScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLScene.m; sourceTree = "<group>"; };
+		65D62BE615A4452A00F92DAB /* APOpenGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLRenderer.h; sourceTree = "<group>"; };
+		65D62BE715A4452A00F92DAB /* APOpenGLRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLRenderer.m; sourceTree = "<group>"; };
 		7A03C54114C42C3F003024FB /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		7A03C54214C42C3F003024FB /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix.m; sourceTree = "<group>"; };
 		7A1CC78614C5D9C600AEAF9A /* Chair_Conv.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Chair_Conv.obj; path = Resources/Chair_Conv.obj; sourceTree = "<group>"; };
@@ -58,13 +79,7 @@
 		7AE2218A14BC4A190012A891 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7AE2219114BC4A910012A891 /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLController.h; sourceTree = "<group>"; };
 		7AE2219214BC4A910012A891 /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLController.m; sourceTree = "<group>"; };
-		7AE2219514BC4ACE0012A891 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
-		7AE2219614BC4ACE0012A891 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
 		7AE2219814BC4B230012A891 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		7AE2219A14BC52970012A891 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
-		7AE2219B14BC52980012A891 /* ESRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRenderer.m; sourceTree = "<group>"; };
-		7AE2219D14BC52DF0012A891 /* ES2Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ES2Renderer.h; sourceTree = "<group>"; };
-		7AE2219E14BC52DF0012A891 /* ES2Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ES2Renderer.m; sourceTree = "<group>"; };
 		7AE221A014BC54030012A891 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7AE221A214BC78530012A891 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
 		7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
@@ -79,10 +94,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		65D62BCE15A30ED900F92DAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D62BE415A31F0B00F92DAB /* QuartzCore.framework in Frameworks */,
+				65D62BE215A3183000F92DAB /* UIKit.framework in Frameworks */,
+				65D62BDC15A30EF500F92DAB /* OpenGLES.framework in Frameworks */,
+				65D62BD215A30ED900F92DAB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AE2217314BC4A190012A891 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65D62BE515A31F6500F92DAB /* libAPOpenGLEngine.a in Frameworks */,
 				7AE221A114BC54030012A891 /* OpenGLES.framework in Frameworks */,
 				7AE2219914BC4B230012A891 /* QuartzCore.framework in Frameworks */,
 				7AE2217B14BC4A190012A891 /* UIKit.framework in Frameworks */,
@@ -94,6 +121,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65AB3858154DC63000607CE1 /* MeshLoaders */ = {
+			isa = PBXGroup;
+			children = (
+				65AB385C154DC70D00607CE1 /* APMeshLoader.h */,
+				65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */,
+			);
+			name = MeshLoaders;
+			sourceTree = "<group>";
+		};
+		65D62BB915A30B5000F92DAB /* APOpenGLEngine */ = {
+			isa = PBXGroup;
+			children = (
+				65D62BC015A30B5000F92DAB /* APOpenGLEngine.h */,
+				65D62BC715A30CDC00F92DAB /* APOpenGLProgram.h */,
+				65D62BC815A30CDC00F92DAB /* APOpenGLProgram.m */,
+				65D62BDE15A3180500F92DAB /* APOpenGLScene.h */,
+				65D62BDF15A3180500F92DAB /* APOpenGLScene.m */,
+				65D62BE615A4452A00F92DAB /* APOpenGLRenderer.h */,
+				65D62BE715A4452A00F92DAB /* APOpenGLRenderer.m */,
+				65D62BBA15A30B5000F92DAB /* Supporting Files */,
+			);
+			path = APOpenGLEngine;
+			sourceTree = "<group>";
+		};
+		65D62BBA15A30B5000F92DAB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65D62BBB15A30B5000F92DAB /* APOpenGLEngine-Info.plist */,
+				65D62BBC15A30B5000F92DAB /* InfoPlist.strings */,
+				65D62BBF15A30B5000F92DAB /* APOpenGLEngine-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7A1CC78414C5D9B300AEAF9A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +198,7 @@
 			children = (
 				7AE2218014BC4A190012A891 /* OpenGLTmp */,
 				7A1CC78414C5D9B300AEAF9A /* Resources */,
+				65D62BB915A30B5000F92DAB /* APOpenGLEngine */,
 				7AE2217914BC4A190012A891 /* Frameworks */,
 				7AE2217714BC4A190012A891 /* Products */,
 			);
@@ -146,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				7AE2217614BC4A190012A891 /* OpenGLTmp.app */,
+				65D62BD115A30ED900F92DAB /* libAPOpenGLEngine.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +228,7 @@
 		7AE2218014BC4A190012A891 /* OpenGLTmp */ = {
 			isa = PBXGroup;
 			children = (
+				65AB3858154DC63000607CE1 /* MeshLoaders */,
 				7ADC648214D7F15200D7A30B /* GLModel */,
 				7ADDC3A614C8513B00D59B73 /* wavefront parser */,
 				7AE2219414BC4A980012A891 /* OpenGL */,
@@ -192,12 +256,6 @@
 				7AE9C17614D161F80042B513 /* GLElement */,
 				7AE2219114BC4A910012A891 /* OpenGLController.h */,
 				7AE2219214BC4A910012A891 /* OpenGLController.m */,
-				7AE2219514BC4ACE0012A891 /* OpenGLView.h */,
-				7AE2219614BC4ACE0012A891 /* OpenGLView.m */,
-				7AE2219A14BC52970012A891 /* ESRenderer.h */,
-				7AE2219B14BC52980012A891 /* ESRenderer.m */,
-				7AE2219D14BC52DF0012A891 /* ES2Renderer.h */,
-				7AE2219E14BC52DF0012A891 /* ES2Renderer.m */,
 				7AE221A214BC78530012A891 /* VertexShader.glsl */,
 				7AE221A414BC7E6A0012A891 /* FragmentShader.glsl */,
 				7AAC4A9B14BEE4E200DE6B08 /* Triangle3D.h */,
@@ -223,7 +281,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		65D62BCF15A30ED900F92DAB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D62BE015A3180500F92DAB /* APOpenGLScene.h in Headers */,
+				65D62BE815A4452A00F92DAB /* APOpenGLRenderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		65D62BD015A30ED900F92DAB /* APOpenGLEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65D62BD915A30ED900F92DAB /* Build configuration list for PBXNativeTarget "APOpenGLEngine" */;
+			buildPhases = (
+				65D62BCD15A30ED900F92DAB /* Sources */,
+				65D62BCE15A30ED900F92DAB /* Frameworks */,
+				65D62BCF15A30ED900F92DAB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = APOpenGLEngine;
+			productName = APOpenGLEngine;
+			productReference = 65D62BD115A30ED900F92DAB /* libAPOpenGLEngine.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7AE2217514BC4A190012A891 /* OpenGLTmp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AE2218E14BC4A190012A891 /* Build configuration list for PBXNativeTarget "OpenGLTmp" */;
@@ -247,8 +334,9 @@
 		7AE2216D14BC4A180012A891 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = AP;
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = SMTSoftware;
+				ORGANIZATIONNAME = ArtProg;
 			};
 			buildConfigurationList = 7AE2217014BC4A180012A891 /* Build configuration list for PBXProject "OpenGLTmp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -263,6 +351,7 @@
 			projectRoot = "";
 			targets = (
 				7AE2217514BC4A190012A891 /* OpenGLTmp */,
+				65D62BD015A30ED900F92DAB /* APOpenGLEngine */,
 			);
 		};
 /* End PBXProject section */
@@ -284,6 +373,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		65D62BCD15A30ED900F92DAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D62BDD15A30F3200F92DAB /* APOpenGLProgram.m in Sources */,
+				65D62BE115A3180500F92DAB /* APOpenGLScene.m in Sources */,
+				65D62BE915A4452A00F92DAB /* APOpenGLRenderer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AE2217214BC4A190012A891 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -291,9 +390,6 @@
 				7AE2218714BC4A190012A891 /* main.m in Sources */,
 				7AE2218B14BC4A190012A891 /* AppDelegate.m in Sources */,
 				7AE2219314BC4A910012A891 /* OpenGLController.m in Sources */,
-				7AE2219714BC4ACE0012A891 /* OpenGLView.m in Sources */,
-				7AE2219C14BC52980012A891 /* ESRenderer.m in Sources */,
-				7AE2219F14BC52DF0012A891 /* ES2Renderer.m in Sources */,
 				7AAC4A9E14BEE52E00DE6B08 /* Triangle3D.m in Sources */,
 				7AAC4AA914BF25E100DE6B08 /* GLProgram.m in Sources */,
 				7AFBC50C14C0730C007C238A /* GLTriangle.m in Sources */,
@@ -302,12 +398,21 @@
 				7AE9C17214D14C380042B513 /* MtlParser.m in Sources */,
 				7AE9C17914D1620E0042B513 /* GLElement.m in Sources */,
 				7ADC648614D7F16500D7A30B /* GLModel.m in Sources */,
+				65AB385E154DC70D00607CE1 /* APMeshLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		65D62BBC15A30B5000F92DAB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65D62BBD15A30B5000F92DAB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		7AE2218314BC4A190012A891 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -319,6 +424,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		65D62BDA15A30ED900F92DAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/APOpenGLEngine.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APOpenGLEngine/APOpenGLEngine-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		65D62BDB15A30ED900F92DAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/APOpenGLEngine.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APOpenGLEngine/APOpenGLEngine-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		7AE2218C14BC4A190012A891 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -339,7 +474,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -358,7 +493,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -391,6 +526,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		65D62BD915A30ED900F92DAB /* Build configuration list for PBXNativeTarget "APOpenGLEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65D62BDA15A30ED900F92DAB /* Debug */,
+				65D62BDB15A30ED900F92DAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		7AE2217014BC4A180012A891 /* Build configuration list for PBXProject "OpenGLTmp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

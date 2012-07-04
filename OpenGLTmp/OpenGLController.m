@@ -7,7 +7,7 @@
 //
 
 #import "OpenGLController.h"
-#import "OpenGLView.h"
+#import "APOpenGLEngine.h"
 
 @implementation OpenGLController
 
@@ -17,16 +17,24 @@
 	
 	CGRect frame = self.view.bounds;
 	
-	CGSize viewSize = CGSizeMake(frame.size.width/2.f, frame.size.height/2.f);
-	CGPoint viewOrigin = CGPointMake((frame.size.width-viewSize.width)/2.f,
-									 (frame.size.height-viewSize.height)/2.f);
-	CGRect viewFrame;
-	viewFrame.origin = viewOrigin;
-	viewFrame.size = viewSize;
-	OpenGLView *view = [[OpenGLView alloc] initWithFrame:viewFrame];
-	view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-	[self.view addSubview:view];
-	[view release];
+	_scene = [[APOpenGLScene alloc] initWithFrame:frame];
+	_scene.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	[self.view addSubview:_scene];
+}
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	[_scene.renderer startRendering];
+}
+
+- (void)viewDidUnload
+{
+	[super viewDidUnload];
+	
+	[_scene.renderer stopRendering];
+	[_scene release], _scene = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

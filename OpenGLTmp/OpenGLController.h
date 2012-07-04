@@ -6,6 +6,12 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
+@class APOpenGLScene;
+
 @interface OpenGLController : UIViewController
+{
+	@private
+	APOpenGLScene *_scene;
+}
 
 @end
