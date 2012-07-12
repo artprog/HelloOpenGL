@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 ArtProg. All rights reserved.
 //
 
+#import "APOpenGLEngine.h"
 #import "GLModel.h"
 
 @class GLProgram;
@@ -18,7 +19,7 @@ typedef struct
 	GLuint textureBuffer;
 } DrawingElement;
 
-@interface GLTriangle : NSObject
+@interface GLTriangle : APOpenGLObject
 {
 	@private
 	GLuint _vertexBuffer;
@@ -36,6 +37,8 @@ typedef struct
 	CGFloat _cameraAngleY;
 	CGFloat _cameraAngleX;
 	NSMutableSet *_drawingElements;
+	
+	BOOL _loaded;
 }
 
 @property CGFloat cameraAngleX;
@@ -43,5 +46,9 @@ typedef struct
 
 - (void)use;
 - (void)render:(GLfloat)width height:(GLfloat)height;
+
+// overriding methods
+- (void)load;
+- (void)render;
 
 @end

@@ -9,3 +9,4 @@
 #import "APOpenGLProgram.h"
 #import "APOpenGLScene.h"
 #import "APOpenGLRenderer.h"
+#import "APOpenGLObject.h"

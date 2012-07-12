@@ -11,6 +11,14 @@
 
 @implementation OpenGLController
 
+- (void)dealloc
+{
+	[_scene.renderer stopRendering];
+	[_scene release];
+	
+	[super dealloc];
+}
+
 - (void)loadView
 {
 	[super loadView];

@@ -23,6 +23,7 @@
 	GLuint _frameBuffer;
 	GLuint _depthRenderBuffer;
 	
+	NSMutableArray *_objects;
 }
 
 @property (nonatomic, readonly, getter=isRendering) BOOL rendering;

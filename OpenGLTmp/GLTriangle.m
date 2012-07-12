@@ -21,13 +21,13 @@
 {
 	if ( (self = [super init]) )
 	{
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
-		_drawingElements = [[NSMutableSet alloc] init];
-		
-		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
-		NSLog(@"a");
-		[objParser parse];
-		NSLog(@"b");
+//		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
+//		_drawingElements = [[NSMutableSet alloc] init];
+//		
+//		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
+//		NSLog(@"a");
+//		[objParser parse];
+//		NSLog(@"b");
 		
 		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
 		NSString *fragment = [[NSBundle mainBundle] pathForResource:@"FragmentShader" ofType:@"glsl"];
@@ -55,46 +55,46 @@
 		glEnableVertexAttribArray(_ambientUniformSlot);
 		glEnableVertexAttribArray(_diffuseUniformSlot);
 		
-		glGenBuffers(1, &_vertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
-		
-		GLushort *indices = [objParser indices];
-		Mesh *meshes = [objParser meshes];
-		NSUInteger meshesCount = [objParser meshesCount];
-		Mesh mesh;
-		for (int i=0; i<meshesCount; ++i)
-		{
-			mesh = meshes[i];
-			DrawingElement drawingElement;
-			drawingElement.indexCount = mesh.indicesCount;
-			drawingElement.material = mesh.material;
-			glGenBuffers(1, &drawingElement.indexBuffer);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawingElement.indexBuffer);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*drawingElement.indexCount, indices+mesh.offset, GL_STATIC_DRAW);
-			
-			if ( strlen(drawingElement.material.map_Kd) > 0 )
-			{
-				NSString *mapKdStr = [NSString stringWithCString:drawingElement.material.map_Kd encoding:NSUTF8StringEncoding];
-				CGImageRef spriteImage = [UIImage imageWithContentsOfFile:[[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:mapKdStr]].CGImage;
-				size_t width = CGImageGetWidth(spriteImage);
-				size_t height = CGImageGetHeight(spriteImage);
-				GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
-				CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
-				CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
-				CGContextRelease(spriteContext);
-				
-				glGenTextures(1, &drawingElement.textureBuffer);
-				glBindTexture(GL_TEXTURE_2D, drawingElement.textureBuffer);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
-				free(spriteData);
-			}
-			
-			[_drawingElements addObject:[NSValue valueWithBytes:&drawingElement objCType:@encode(DrawingElement)]];
-		}
-		
-		[objParser release];
+//		glGenBuffers(1, &_vertexBuffer);
+//		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
+//		
+//		GLushort *indices = [objParser indices];
+//		Mesh *meshes = [objParser meshes];
+//		NSUInteger meshesCount = [objParser meshesCount];
+//		Mesh mesh;
+//		for (int i=0; i<meshesCount; ++i)
+//		{
+//			mesh = meshes[i];
+//			DrawingElement drawingElement;
+//			drawingElement.indexCount = mesh.indicesCount;
+//			drawingElement.material = mesh.material;
+//			glGenBuffers(1, &drawingElement.indexBuffer);
+//			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawingElement.indexBuffer);
+//			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*drawingElement.indexCount, indices+mesh.offset, GL_STATIC_DRAW);
+//			
+//			if ( strlen(drawingElement.material.map_Kd) > 0 )
+//			{
+//				NSString *mapKdStr = [NSString stringWithCString:drawingElement.material.map_Kd encoding:NSUTF8StringEncoding];
+//				CGImageRef spriteImage = [UIImage imageWithContentsOfFile:[[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:mapKdStr]].CGImage;
+//				size_t width = CGImageGetWidth(spriteImage);
+//				size_t height = CGImageGetHeight(spriteImage);
+//				GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
+//				CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
+//				CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+//				CGContextRelease(spriteContext);
+//				
+//				glGenTextures(1, &drawingElement.textureBuffer);
+//				glBindTexture(GL_TEXTURE_2D, drawingElement.textureBuffer);
+//				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+//				free(spriteData);
+//			}
+//			
+//			[_drawingElements addObject:[NSValue valueWithBytes:&drawingElement objCType:@encode(DrawingElement)]];
+//		}
+//		
+//		[objParser release];
 	}
 	return self;
 }
@@ -122,6 +122,93 @@
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
 	[_program use];
+}
+
+// overriding methods
+- (void)load
+{
+	if ( !_loaded )
+	{
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
+		ObjParser *objParser = [[ObjParser alloc] initWithFile:path];
+		NSLog(@"a");
+		[objParser parse];
+		NSLog(@"b");
+	
+//	NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
+//	NSString *fragment = [[NSBundle mainBundle] pathForResource:@"FragmentShader" ofType:@"glsl"];
+//	_program = [[GLProgram alloc] initWithVertexShaderFile:vertex fragmentShaderFile:fragment];
+//	[_program addAttribute:@"position"];
+//	[_program addAttribute:@"sourceTextCoord"];
+//	if ( ![_program link] )
+//	{
+//		NSLog(@"Error while linking OpenGL program: \"%@\"!!!", [_program programLog]);
+//	}
+//	
+//	_positionSlot = [_program attributeIndex:@"position"];
+//	_textCoordSlot = [_program attributeIndex:@"sourceTextCoord"];
+//	
+//	_projectionUniformSlot = [_program uniformIndex:@"projection"];
+//	_ambientUniformSlot = [_program uniformIndex:@"ambientColor"];
+//	_diffuseUniformSlot = [_program uniformIndex:@"diffuseColor"];
+//	_textureAvailableUniformSlot = [_program uniformIndex:@"textureAvailable"];
+//	_textureUniformSlot = [_program uniformIndex:@"texture"];
+//	
+//	glEnableVertexAttribArray(_positionSlot);
+//	glEnableVertexAttribArray(_textCoordSlot);
+//	
+//	glEnableVertexAttribArray(_projectionUniformSlot);
+//	glEnableVertexAttribArray(_ambientUniformSlot);
+//	glEnableVertexAttribArray(_diffuseUniformSlot);
+//	
+		glGenBuffers(1, &_vertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
+	
+		GLushort *indices = [objParser indices];
+		Mesh *meshes = [objParser meshes];
+		NSUInteger meshesCount = [objParser meshesCount];
+		Mesh mesh;
+		for (int i=0; i<meshesCount; ++i)
+		{
+			mesh = meshes[i];
+			DrawingElement drawingElement;
+			drawingElement.indexCount = mesh.indicesCount;
+			drawingElement.material = mesh.material;
+			glGenBuffers(1, &drawingElement.indexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawingElement.indexBuffer);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*drawingElement.indexCount, indices+mesh.offset, GL_STATIC_DRAW);
+		
+			if ( strlen(drawingElement.material.map_Kd) > 0 )
+			{
+				NSString *mapKdStr = [NSString stringWithCString:drawingElement.material.map_Kd encoding:NSUTF8StringEncoding];
+				CGImageRef spriteImage = [UIImage imageWithContentsOfFile:[[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:mapKdStr]].CGImage;
+				size_t width = CGImageGetWidth(spriteImage);
+				size_t height = CGImageGetHeight(spriteImage);
+				GLubyte *spriteData = (GLubyte*)calloc(width*height*4, sizeof(GLubyte));
+				CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
+				CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+				CGContextRelease(spriteContext);
+			
+				glGenTextures(1, &drawingElement.textureBuffer);
+				glBindTexture(GL_TEXTURE_2D, drawingElement.textureBuffer);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+				free(spriteData);
+			}
+		
+			[_drawingElements addObject:[NSValue valueWithBytes:&drawingElement objCType:@encode(DrawingElement)]];
+		}
+	
+		[objParser release];
+		
+		_loaded = YES;
+	}
+}
+
+- (void)render
+{
+	
 }
 
 - (void)render:(GLfloat)width height:(GLfloat)height

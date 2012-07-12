@@ -8,6 +8,7 @@
 
 #import "APOpenGLRenderer.h"
 #import <QuartzCore/QuartzCore.h>
+#import "APOpenGLObject.h"
 
 @interface APOpenGLRenderer ()
 - (void)render;
@@ -21,6 +22,8 @@
     {
 		_mutexQueue = dispatch_queue_create("pl.artprog.APOpenGLScene_mutexQueue", 0);
 		_refreshRate = 20.f;
+		
+		_objects = [[NSMutableArray alloc] init];
 		
 		_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 		if ( !_context || ![EAGLContext setCurrentContext:_context] )
@@ -52,6 +55,7 @@
 		[EAGLContext setCurrentContext:nil];
 	}
 	[_context release];
+	[_objects release];
 	
 	[super dealloc];
 }
@@ -165,6 +169,15 @@
 	glEnable(GL_DEPTH_TEST);
 	
 	glViewport(0, 0, _width, _height);
+	
+	for (APOpenGLObject *object in _objects)
+	{
+		if ( ![object isLoaded] )
+		{
+			[object load];
+		}
+		[object render];
+	}
 	
 //	[_triangle use];
 //	[_triangle render:_width height:_height];

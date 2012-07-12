@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D27D8FC15AED27A00C4668C /* APOpenGLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D27D8FA15AED27A00C4668C /* APOpenGLObject.h */; };
+		3D27D8FD15AED27A00C4668C /* APOpenGLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */; };
+		3D27D90115AEDDC300C4668C /* APOpenGLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */; };
+		3D27D90215AEDDC300C4668C /* APOpenGLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27D90015AEDDC300C4668C /* APOpenGLParser.m */; };
 		65AB385E154DC70D00607CE1 /* APMeshLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */; };
 		65D62BD215A30ED900F92DAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217C14BC4A190012A891 /* Foundation.framework */; };
 		65D62BDC15A30EF500F92DAB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE221A014BC54030012A891 /* OpenGLES.framework */; };
@@ -43,6 +47,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D27D8FA15AED27A00C4668C /* APOpenGLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLObject.h; sourceTree = "<group>"; };
+		3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLObject.m; sourceTree = "<group>"; };
+		3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLParser.h; sourceTree = "<group>"; };
+		3D27D90015AEDDC300C4668C /* APOpenGLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLParser.m; sourceTree = "<group>"; };
 		65AB385C154DC70D00607CE1 /* APMeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMeshLoader.h; sourceTree = "<group>"; };
 		65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APMeshLoader.cpp; sourceTree = "<group>"; };
 		65D62BBB15A30B5000F92DAB /* APOpenGLEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "APOpenGLEngine-Info.plist"; sourceTree = "<group>"; };
@@ -140,6 +148,10 @@
 				65D62BDF15A3180500F92DAB /* APOpenGLScene.m */,
 				65D62BE615A4452A00F92DAB /* APOpenGLRenderer.h */,
 				65D62BE715A4452A00F92DAB /* APOpenGLRenderer.m */,
+				3D27D8FA15AED27A00C4668C /* APOpenGLObject.h */,
+				3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */,
+				3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */,
+				3D27D90015AEDDC300C4668C /* APOpenGLParser.m */,
 				65D62BBA15A30B5000F92DAB /* Supporting Files */,
 			);
 			path = APOpenGLEngine;
@@ -288,6 +300,8 @@
 			files = (
 				65D62BE015A3180500F92DAB /* APOpenGLScene.h in Headers */,
 				65D62BE815A4452A00F92DAB /* APOpenGLRenderer.h in Headers */,
+				3D27D8FC15AED27A00C4668C /* APOpenGLObject.h in Headers */,
+				3D27D90115AEDDC300C4668C /* APOpenGLParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +394,8 @@
 				65D62BDD15A30F3200F92DAB /* APOpenGLProgram.m in Sources */,
 				65D62BE115A3180500F92DAB /* APOpenGLScene.m in Sources */,
 				65D62BE915A4452A00F92DAB /* APOpenGLRenderer.m in Sources */,
+				3D27D8FD15AED27A00C4668C /* APOpenGLObject.m in Sources */,
+				3D27D90215AEDDC300C4668C /* APOpenGLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +549,7 @@
 				65D62BDB15A30ED900F92DAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AE2217014BC4A180012A891 /* Build configuration list for PBXProject "OpenGLTmp" */ = {
 			isa = XCConfigurationList;
