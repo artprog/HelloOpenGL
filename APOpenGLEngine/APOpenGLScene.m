@@ -12,7 +12,7 @@
 
 @implementation APOpenGLScene
 
-@synthesize renderer = _renderer;
+//@synthesize renderer = _renderer;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -50,6 +50,31 @@
 + (Class)layerClass
 {
 	return [CAEAGLLayer class];
+}
+
+- (void)addObject:(APOpenGLObject*)object
+{
+	[_renderer addObject:object];
+}
+
+- (void)addObjects:(NSArray*)objects
+{
+	[_renderer addObjects:objects];
+}
+
+- (void)renderSingleFrame
+{
+	[_renderer renderSingleFrame];
+}
+
+- (void)startRendering
+{
+	[_renderer startRendering];
+}
+
+- (void)stopRendering
+{
+	[_renderer stopRendering];
 }
 
 @end

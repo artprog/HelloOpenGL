@@ -150,39 +150,55 @@
 	[self render];
 }
 
+- (void)addObject:(APOpenGLObject*)object
+{
+	dispatch_async(_mutexQueue, ^{
+		if ( object )
+		{
+			[_objects addObject:object];
+		}
+	});
+}
+
+- (void)addObjects:(NSArray*)objects
+{
+	dispatch_async(_mutexQueue, ^{
+		[_objects addObjectsFromArray:objects];
+	});
+}
+
 #pragma mark -
 #pragma mark APOpenGLRenderer
 
 - (void)render
 {
-	if ( [EAGLContext currentContext] != _context )
-	{
-		if ( ![EAGLContext setCurrentContext:_context] )
+	dispatch_sync(_mutexQueue, ^{
+		if ( [EAGLContext currentContext] != _context )
 		{
-			return;
+			if ( ![EAGLContext setCurrentContext:_context] )
+			{
+				return;
+			}
 		}
-	}
-	
-	glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
-	glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-	
-	glViewport(0, 0, _width, _height);
-	
-	for (APOpenGLObject *object in _objects)
-	{
-		if ( ![object isLoaded] )
+		
+		glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
+		glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		
+		glViewport(0, 0, _width, _height);
+		
+		for (APOpenGLObject *object in _objects)
 		{
-			[object load];
+			[object build];
+			[object render];
 		}
-		[object render];
-	}
-	
-//	[_triangle use];
-//	[_triangle render:_width height:_height];
-	
-    [_context presentRenderbuffer:GL_RENDERBUFFER];
+		
+		//	[_triangle use];
+		//	[_triangle render:_width height:_height];
+		
+		[_context presentRenderbuffer:GL_RENDERBUFFER];
+	});
 }
 
 @end

@@ -19,7 +19,7 @@ typedef struct
 	GLuint textureBuffer;
 } DrawingElement;
 
-@interface GLTriangle : APOpenGLObject
+@interface GLTriangle : NSObject
 {
 	@private
 	GLuint _vertexBuffer;

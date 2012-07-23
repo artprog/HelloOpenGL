@@ -7,11 +7,13 @@
 //
 
 @class APOpenGLScene;
+@class APOpenGLObject;
 
 @interface OpenGLController : UIViewController
 {
 	@private
 	APOpenGLScene *_scene;
+	APOpenGLObject *_object;
 }
 
 @end

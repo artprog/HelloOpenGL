@@ -7,6 +7,7 @@
 //
 
 @class APOpenGLRenderer;
+@class APOpenGLObject;
 
 @interface APOpenGLScene : UIView
 {
@@ -14,6 +15,13 @@
 	APOpenGLRenderer *_renderer;
 }
 
-@property (nonatomic, readonly) APOpenGLRenderer *renderer;
+//@property (nonatomic, readonly) APOpenGLRenderer *renderer;
+
+- (void)renderSingleFrame;
+- (void)startRendering;
+- (void)stopRendering;
+
+- (void)addObject:(APOpenGLObject*)object;
+- (void)addObjects:(NSArray*)objects;
 
 @end

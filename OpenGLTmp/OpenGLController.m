@@ -13,8 +13,9 @@
 
 - (void)dealloc
 {
-	[_scene.renderer stopRendering];
+	[_scene stopRendering];
 	[_scene release];
+	[_object release];
 	
 	[super dealloc];
 }
@@ -28,21 +29,25 @@
 	_scene = [[APOpenGLScene alloc] initWithFrame:frame];
 	_scene.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:_scene];
+	
+	_object = [[APOpenGLObject alloc] init];
+	[_scene addObject:_object];
 }
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
-	[_scene.renderer startRendering];
+	[_scene startRendering];
 }
 
 - (void)viewDidUnload
 {
 	[super viewDidUnload];
 	
-	[_scene.renderer stopRendering];
+	[_scene stopRendering];
 	[_scene release], _scene = nil;
+	[_object release], _object = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

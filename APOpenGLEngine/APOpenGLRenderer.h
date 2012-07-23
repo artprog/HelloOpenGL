@@ -7,6 +7,7 @@
 //
 
 @class CAEAGLLayer;
+@class APOpenGLObject;
 
 @interface APOpenGLRenderer : NSObject
 {
@@ -34,5 +35,8 @@
 - (void)stopRendering;
 
 - (void)resizeFromLayer:(CAEAGLLayer*)layer;
+
+- (void)addObject:(APOpenGLObject*)object;
+- (void)addObjects:(NSArray*)objects;
 
 @end
