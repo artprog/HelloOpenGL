@@ -7,24 +7,41 @@
 //
 
 #include <vector>
-#import "GLModel.h"
+#import "APMath.h"
 
+typedef struct
+{
+	APPoint vertex;
+	APTextCoord textCoord;
+	APNormal normal;
+} APOpenGLParserPoint;
+
+/**
+ \class APOpenGLParser is an abstract class used to read 3D model file
+ into memory.
+ */
 @interface APOpenGLParser : NSObject
 {
 	@protected
 	NSString *_path;
-	std::vector<TriangleVertex> _vertices;
+	std::vector<APPoint> _vertices;
+	std::vector<APTextCoord> _textCoords;
+	std::vector<APNormal> _normals;
+	std::vector<APOpenGLParserPoint> _faces;
 	std::vector<GLushort> _indices;
-	std::vector<Vector2D> _textCoords;
-	std::vector<Vector3D> _normalVectors;
 }
 
 - (id)initWithPath:(NSString*)path;
 
 - (BOOL)parse:(NSError**)error;
 
-- (TriangleVertex*)triangleVertices;
-- (NSUInteger)triangleVerticesCount;
+/// Returns an array of vertices.
+/// 
+/// Each vertex can consist of several structures (such as position,
+/// texture coordinates, normal vector). Concrete structures which each
+/// vertex consists of, depends on the 3D model file.
+- (void*)vertices;
+- (NSUInteger)verticesCount;
 
 - (GLushort*)indices;
 - (NSUInteger)indicesCount;

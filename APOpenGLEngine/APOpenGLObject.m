@@ -17,33 +17,13 @@
 {
 	if ( (self = [super init]) )
 	{
-		NSString *vertex = [[NSBundle mainBundle] pathForResource:@"VertexShader" ofType:@"glsl"];
-		NSString *fragment = [[NSBundle mainBundle] pathForResource:@"FragmentShader" ofType:@"glsl"];
-		_program = [[APOpenGLProgram alloc] initWithVertexShaderFile:vertex fragmentShaderFile:fragment];
-		[_program addAttribute:@"position"];
-		[_program addAttribute:@"sourceTextCoord"];
-		if ( ![_program link] )
-		{
-			NSLog(@"Error while linking OpenGL program: \"%@\"!!!", [_program programLog]);
-		}
-		
-		_positionSlot = [_program attributeIndex:@"position"];
-		_textCoordSlot = [_program attributeIndex:@"sourceTextCoord"];
-		
-		_projectionUniformSlot = [_program uniformIndex:@"projection"];
-		_ambientUniformSlot = [_program uniformIndex:@"ambientColor"];
-		_diffuseUniformSlot = [_program uniformIndex:@"diffuseColor"];
-		_textureAvailableUniformSlot = [_program uniformIndex:@"textureAvailable"];
-		_textureUniformSlot = [_program uniformIndex:@"texture"];
-		
-		glEnableVertexAttribArray(_positionSlot);
-		glEnableVertexAttribArray(_textCoordSlot);
-		
-		glEnableVertexAttribArray(_projectionUniformSlot);
-		glEnableVertexAttribArray(_ambientUniformSlot);
-		glEnableVertexAttribArray(_diffuseUniformSlot);
+		[self createProgram];
 	}
 	return self;
+}
+
+- (void)createProgram
+{
 }
 
 - (APOpenGLParser*)createParser
@@ -51,14 +31,14 @@
 	return nil;
 }
 
-- (BOOL)isBuilt
+- (BOOL)isLoaded
 {
-	return _built;
+	return _isLoaded;
 }
 
-- (void)build
+- (void)load
 {
-	if ( !_built )
+	if ( !_isLoaded )
 	{
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"Chair_Conv" ofType:@"obj"];
 		APOpenGLParser *objParser = [[APOpenGLParser alloc] initWithPath:path];
@@ -92,9 +72,9 @@
 	//	glEnableVertexAttribArray(_ambientUniformSlot);
 	//	glEnableVertexAttribArray(_diffuseUniformSlot);
 	//	
-	glGenBuffers(1, &_vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
+//	glGenBuffers(1, &_vertexBuffer);
+//	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex)*[objParser triangleVerticesCount], [objParser triangleVertices], GL_STATIC_DRAW);
 	
 //	GLushort *indices = [objParser indices];
 //	Mesh *meshes = [objParser meshes];
@@ -133,8 +113,12 @@
 	
 	[objParser release];
 	
-	_built = YES;
+	_isLoaded = YES;
 	}
+}
+
+- (void)unload
+{
 }
 
 - (void)render

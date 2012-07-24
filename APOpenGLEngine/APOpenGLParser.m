@@ -27,7 +27,7 @@ static const int defaultVectorCapacity = 4096;
 		
 		_vertices.reserve(defaultVectorCapacity);
 		_textCoords.reserve(defaultVectorCapacity);
-		_normalVectors.resize(defaultVectorCapacity);
+		_normals.resize(defaultVectorCapacity);
 	}
 	return self;
 }
@@ -86,6 +86,26 @@ static const int defaultVectorCapacity = 4096;
 //		}
 	}
 	return YES;
+}
+
+- (void*)vertices
+{
+	return &_vertices[0];
+}
+
+- (NSUInteger)verticesCount
+{
+	return _vertices.size();
+}
+
+- (GLushort*)indices
+{
+	return &_indices[0];
+}
+
+- (NSUInteger)indicesCount
+{
+	return _indices.size();
 }
 
 #pragma mark -
@@ -154,26 +174,6 @@ static const int defaultVectorCapacity = 4096;
 		_indices.push_back(polygon[i]);
 		_indices.push_back(polygon[i+1]);
 	}
-}
-
-- (TriangleVertex*)triangleVertices
-{
-	return &_vertices[0];
-}
-
-- (NSUInteger)triangleVerticesCount
-{
-	return _vertices.size();
-}
-
-- (GLushort*)indices
-{
-	return &_indices[0];
-}
-
-- (NSUInteger)indicesCount
-{
-	return _indices.size();
 }
 
 @end

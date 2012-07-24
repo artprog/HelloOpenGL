@@ -11,7 +11,15 @@
 		3D27D8FD15AED27A00C4668C /* APOpenGLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */; };
 		3D27D90115AEDDC300C4668C /* APOpenGLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */; };
 		3D27D90215AEDDC300C4668C /* APOpenGLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D27D90015AEDDC300C4668C /* APOpenGLParser.m */; };
-		65AB385E154DC70D00607CE1 /* APMeshLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */; };
+		3D83191E15BEA95000458D7E /* APOpenGLDefaultObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D83191C15BEA95000458D7E /* APOpenGLDefaultObject.h */; };
+		3D83191F15BEA95000458D7E /* APOpenGLDefaultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D83191D15BEA95000458D7E /* APOpenGLDefaultObject.m */; };
+		3D83192415BEB54100458D7E /* CubeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D83192315BEB54100458D7E /* CubeObject.m */; };
+		3D83192D15BEB5A100458D7E /* APOpenGLCubeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D83192B15BEB5A100458D7E /* APOpenGLCubeObject.h */; };
+		3D83192E15BEB5A100458D7E /* APOpenGLCubeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D83192C15BEB5A100458D7E /* APOpenGLCubeObject.m */; };
+		3D83193115BEB5BD00458D7E /* APOpenGLCubeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D83192F15BEB5BD00458D7E /* APOpenGLCubeParser.h */; };
+		3D83193215BEB5BD00458D7E /* APOpenGLCubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D83193015BEB5BD00458D7E /* APOpenGLCubeParser.m */; };
+		3D83193515BEB9EB00458D7E /* APMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D83193315BEB9EB00458D7E /* APMath.h */; };
+		3D83193615BEB9EB00458D7E /* APMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D83193415BEB9EB00458D7E /* APMath.m */; };
 		65D62BD215A30ED900F92DAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2217C14BC4A190012A891 /* Foundation.framework */; };
 		65D62BDC15A30EF500F92DAB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE221A014BC54030012A891 /* OpenGLES.framework */; };
 		65D62BDD15A30F3200F92DAB /* APOpenGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D62BC815A30CDC00F92DAB /* APOpenGLProgram.m */; };
@@ -51,8 +59,16 @@
 		3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLObject.m; sourceTree = "<group>"; };
 		3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLParser.h; sourceTree = "<group>"; };
 		3D27D90015AEDDC300C4668C /* APOpenGLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLParser.m; sourceTree = "<group>"; };
-		65AB385C154DC70D00607CE1 /* APMeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMeshLoader.h; sourceTree = "<group>"; };
-		65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APMeshLoader.cpp; sourceTree = "<group>"; };
+		3D83191C15BEA95000458D7E /* APOpenGLDefaultObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLDefaultObject.h; sourceTree = "<group>"; };
+		3D83191D15BEA95000458D7E /* APOpenGLDefaultObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLDefaultObject.m; sourceTree = "<group>"; };
+		3D83192215BEB54100458D7E /* CubeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeObject.h; sourceTree = "<group>"; };
+		3D83192315BEB54100458D7E /* CubeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeObject.m; sourceTree = "<group>"; };
+		3D83192B15BEB5A100458D7E /* APOpenGLCubeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLCubeObject.h; sourceTree = "<group>"; };
+		3D83192C15BEB5A100458D7E /* APOpenGLCubeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLCubeObject.m; sourceTree = "<group>"; };
+		3D83192F15BEB5BD00458D7E /* APOpenGLCubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenGLCubeParser.h; sourceTree = "<group>"; };
+		3D83193015BEB5BD00458D7E /* APOpenGLCubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOpenGLCubeParser.m; sourceTree = "<group>"; };
+		3D83193315BEB9EB00458D7E /* APMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMath.h; sourceTree = "<group>"; };
+		3D83193415BEB9EB00458D7E /* APMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APMath.m; sourceTree = "<group>"; };
 		65D62BBB15A30B5000F92DAB /* APOpenGLEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "APOpenGLEngine-Info.plist"; sourceTree = "<group>"; };
 		65D62BBD15A30B5000F92DAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65D62BBF15A30B5000F92DAB /* APOpenGLEngine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APOpenGLEngine-Prefix.pch"; sourceTree = "<group>"; };
@@ -129,18 +145,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		65AB3858154DC63000607CE1 /* MeshLoaders */ = {
+		3D83192115BEA95700458D7E /* APOpenGLObject */ = {
 			isa = PBXGroup;
 			children = (
-				65AB385C154DC70D00607CE1 /* APMeshLoader.h */,
-				65AB385D154DC70D00607CE1 /* APMeshLoader.cpp */,
+				3D27D8FA15AED27A00C4668C /* APOpenGLObject.h */,
+				3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */,
+				3D83191C15BEA95000458D7E /* APOpenGLDefaultObject.h */,
+				3D83191D15BEA95000458D7E /* APOpenGLDefaultObject.m */,
 			);
-			name = MeshLoaders;
+			name = APOpenGLObject;
+			sourceTree = "<group>";
+		};
+		3D83192A15BEB5A100458D7E /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				3D83192B15BEB5A100458D7E /* APOpenGLCubeObject.h */,
+				3D83192C15BEB5A100458D7E /* APOpenGLCubeObject.m */,
+				3D83192F15BEB5BD00458D7E /* APOpenGLCubeParser.h */,
+				3D83193015BEB5BD00458D7E /* APOpenGLCubeParser.m */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 		65D62BB915A30B5000F92DAB /* APOpenGLEngine */ = {
 			isa = PBXGroup;
 			children = (
+				3D83192A15BEB5A100458D7E /* Example */,
+				3D83192115BEA95700458D7E /* APOpenGLObject */,
 				65D62BC015A30B5000F92DAB /* APOpenGLEngine.h */,
 				65D62BC715A30CDC00F92DAB /* APOpenGLProgram.h */,
 				65D62BC815A30CDC00F92DAB /* APOpenGLProgram.m */,
@@ -148,10 +179,10 @@
 				65D62BDF15A3180500F92DAB /* APOpenGLScene.m */,
 				65D62BE615A4452A00F92DAB /* APOpenGLRenderer.h */,
 				65D62BE715A4452A00F92DAB /* APOpenGLRenderer.m */,
-				3D27D8FA15AED27A00C4668C /* APOpenGLObject.h */,
-				3D27D8FB15AED27A00C4668C /* APOpenGLObject.m */,
 				3D27D8FF15AEDDC200C4668C /* APOpenGLParser.h */,
 				3D27D90015AEDDC300C4668C /* APOpenGLParser.m */,
+				3D83193315BEB9EB00458D7E /* APMath.h */,
+				3D83193415BEB9EB00458D7E /* APMath.m */,
 				65D62BBA15A30B5000F92DAB /* Supporting Files */,
 			);
 			path = APOpenGLEngine;
@@ -240,7 +271,6 @@
 		7AE2218014BC4A190012A891 /* OpenGLTmp */ = {
 			isa = PBXGroup;
 			children = (
-				65AB3858154DC63000607CE1 /* MeshLoaders */,
 				7ADC648214D7F15200D7A30B /* GLModel */,
 				7ADDC3A614C8513B00D59B73 /* wavefront parser */,
 				7AE2219414BC4A980012A891 /* OpenGL */,
@@ -278,6 +308,8 @@
 				7AAC4AA814BF25E000DE6B08 /* GLProgram.m */,
 				7AFBC50A14C0730C007C238A /* GLTriangle.h */,
 				7AFBC50B14C0730C007C238A /* GLTriangle.m */,
+				3D83192215BEB54100458D7E /* CubeObject.h */,
+				3D83192315BEB54100458D7E /* CubeObject.m */,
 			);
 			name = OpenGL;
 			sourceTree = "<group>";
@@ -302,6 +334,10 @@
 				65D62BE815A4452A00F92DAB /* APOpenGLRenderer.h in Headers */,
 				3D27D8FC15AED27A00C4668C /* APOpenGLObject.h in Headers */,
 				3D27D90115AEDDC300C4668C /* APOpenGLParser.h in Headers */,
+				3D83191E15BEA95000458D7E /* APOpenGLDefaultObject.h in Headers */,
+				3D83192D15BEB5A100458D7E /* APOpenGLCubeObject.h in Headers */,
+				3D83193115BEB5BD00458D7E /* APOpenGLCubeParser.h in Headers */,
+				3D83193515BEB9EB00458D7E /* APMath.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +432,10 @@
 				65D62BE915A4452A00F92DAB /* APOpenGLRenderer.m in Sources */,
 				3D27D8FD15AED27A00C4668C /* APOpenGLObject.m in Sources */,
 				3D27D90215AEDDC300C4668C /* APOpenGLParser.m in Sources */,
+				3D83191F15BEA95000458D7E /* APOpenGLDefaultObject.m in Sources */,
+				3D83192E15BEB5A100458D7E /* APOpenGLCubeObject.m in Sources */,
+				3D83193215BEB5BD00458D7E /* APOpenGLCubeParser.m in Sources */,
+				3D83193615BEB9EB00458D7E /* APMath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +454,7 @@
 				7AE9C17214D14C380042B513 /* MtlParser.m in Sources */,
 				7AE9C17914D1620E0042B513 /* GLElement.m in Sources */,
 				7ADC648614D7F16500D7A30B /* GLModel.m in Sources */,
-				65AB385E154DC70D00607CE1 /* APMeshLoader.cpp in Sources */,
+				3D83192415BEB54100458D7E /* CubeObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

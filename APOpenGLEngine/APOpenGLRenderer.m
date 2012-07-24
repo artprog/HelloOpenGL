@@ -181,6 +181,7 @@
 			}
 		}
 		
+		// erasing the renderbuffers
 		glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
 		glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -188,8 +189,11 @@
 		
 		glViewport(0, 0, _width, _height);
 		
-		for (APOpenGLObject *object in _objects)
+		int objectsCount = _objects.count;
+		APOpenGLObject *object;
+		for (int i=0; i<objectsCount; ++i)
 		{
+			object = [_objects objectAtIndex:i];
 			[object build];
 			[object render];
 		}

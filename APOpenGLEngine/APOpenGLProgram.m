@@ -22,21 +22,26 @@ typedef void (*GLLogFunction) (GLuint program, GLsizei bufsize, GLsizei *length,
 {
     if ( self = [super init] )
     {
-        _attributes = [[NSMutableArray alloc] init];
-        _uniforms = [[NSMutableArray alloc] init];
         _program = glCreateProgram();
 		
         if ( ![self compileShader:&_vertexShader type:GL_VERTEX_SHADER file:vertexShaderFile] )
 		{
             NSLog(@"Failed to compile vertex shader!");
+			glDeleteProgram(_program);
+			return nil;
 		}
         if ( ![self compileShader:&_fragmentShader type:GL_FRAGMENT_SHADER file:fragmentShaderFile] )
 		{
             NSLog(@"Failed to compile fragment shader!");
+			glDeleteProgram(_program);
+			return nil;
 		}
 		
         glAttachShader(_program, _vertexShader);
         glAttachShader(_program, _fragmentShader);
+		
+		_attributes = [[NSMutableArray alloc] init];
+        _uniforms = [[NSMutableArray alloc] init];
     }
     return self;
 }
